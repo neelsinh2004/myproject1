@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/responsive.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .account-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+        }
+
+        .account-sidebar {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .profile-info {
+            text-align: center;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid #e0e0e0;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: white;
+            margin: 0 auto 1rem;
+        }
+
+        .profile-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .profile-email {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .account-menu {
+            list-style: none;
+        }
+
+        .account-menu li {
+            margin-bottom: 0.5rem;
+        }
+
+        .account-menu a {
+            display: block;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            color: var(--text-medium);
+        }
+
+        .account-menu a:hover,
+        .account-menu a.active {
+            background: rgba(139, 21, 56, 0.1);
+            color: var(--primary-maroon);
+            font-weight: 600;
+        }
+
+        .account-content {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-maroon);
+            box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .order-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .order-card:hover {
+            border-color: var(--primary-maroon);
+            box-shadow: var(--shadow-md);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-number {
+            font-weight: 600;
+            color: var(--primary-maroon);
+        }
+
+        .order-date {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .order-status {
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .status-delivered {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .status-pending {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .order-items {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .order-item-image {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-item-price {
+            color: var(--primary-maroon);
+            font-weight: 600;
+        }
+
+        .order-total {
+            text-align: right;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 968px) {
+            .account-container {
+                grid-template-columns: 1fr;
+            }
+
+            .account-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="index.html#collections">Collections</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span>My Account</span>
+    </div>
+
+    <div class="account-container">
+        <aside class="account-sidebar">
+            <div class="profile-info">
+                <div class="profile-avatar" id="userInitial">N</div>
+                <div class="profile-name" id="profileName">Neel Chauhan</div>
+                <div class="profile-email" id="profileEmail">neelchauhan@example.com</div>
+            </div>
+            <ul class="account-menu">
+                <li><a href="#" class="active" onclick="showSection('profile')">Profile</a></li>
+                <li><a href="#" onclick="showSection('orders')">Order History</a></li>
+                <li><a href="#" onclick="showSection('addresses')">Addresses</a></li>
+                <li><a href="wishlist.html">Wishlist</a></li>
+                <li><a href="compare.html">Compare</a></li>
+                <li><a href="#" onclick="logout()" style="color: #d32f2f;">Logout</a></li>
+            </ul>
+        </aside>
+
+        <main class="account-content">
+            <div class="content-section active" id="profile">
+                <h2 class="section-title">Edit Profile</h2>
+                <form id="profileForm" onsubmit="handleProfileUpdate(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="enter your surname" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" placeholder="name@example.com" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" placeholder="enter your phone number">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+
+            <div class="content-section" id="orders">
+                <h2 class="section-title">Order History</h2>
+                <div id="ordersContainer">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+
+            <div class="content-section" id="addresses">
+                <h2 class="section-title">Saved Addresses</h2>
+                <form id="addressForm" onsubmit="handleAddressUpdate(event)">
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" id="address" placeholder="Enter your address">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="Enter city">
+                        </div>
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" id="pincode" placeholder="Enter pincode">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Address</button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Function to get product image
+        function getProductImage(productName) {
+            const imageMap = {
+                'Designer Silk Saree': 'D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg',
+                'Embroidered Kurti': '64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp',
+                'Bridal Lehenga': 'AFFEA1B2-B1CA-4C74-9CA6-1C87D0186E27.avif',
+                'Designer Gown': 'EF9E3A48-CDAA-4922-B67D-0A80F3097FE6.jpeg',
+                'Casual Saree': '338C478E-ABED-47EC-9B0C-5C20E1B0CEA0.webp',
+                'Party Wear Kurti': 'E8CD3C84-96C1-43AD-B3E7-6686703DEBE7.jpeg',
+                'Designer Lehenga': '0B085768-4223-4C5B-93EB-89A368EDA3C1.jpeg',
+                'Evening Gown': 'C364A5D7-83AA-453B-A20B-E6393FF2565F.webp',
+                'Pakistani Salwar Kameez': 'C0464442-6943-4F6C-B5FB-6FA5060F36DB.webp',
+                'Wedding Lehenga': '7406512D-7E5D-4FAE-AEC4-4C1B75EE141F.jpeg',
+                'New Casual Saree': 'C9332EA9-5901-4F88-9354-8FFA40812181.webp',
+                'Designer Salwar Kameez': 'D3541698-BE6F-4F7F-B4BF-781E857FA99F.webp',
+                'Party Wear Saree': 'D1F77898-3292-4789-AAFE-C22BEC1BF761.webp',
+                'Casual Kurti': '49C1DCE6-BF43-4D21-85BD-58624CDE7A2C.webp',
+                'Designer Lehenga Choli': '0AE3873E-820A-4388-A1AC-8108DEE9A11E_1_201_a.jpeg',
+                'Anarkali Kurti': '8DC0DBA9-007B-4E8A-93A8-E2C525EC8F24.webp',
+                'Party Wear Salwar Kameez': 'AD1B9975-BB16-45EE-8397-2D59847C9C52.jpeg',
+                'Cocktail Gown': 'DCC68DB8-65C6-478D-8290-858AABC412D1.webp',
+                'Banarasi Silk Saree': '21FE3401-18B4-4FAF-BB06-A4C374DCBE51.webp',
+                'Printed Kurti': '12D819EB-A376-4227-8769-4DE3F803914C.webp',
+                'Georgette Saree': '5658A972-BE79-4735-B898-9557B4832293.webp',
+                'Casual Salwar Kameez': '8C42C2E8-45FE-454D-AAF3-A33F1432C93C.jpeg',
+                'Maxi Gown': 'DE465FA4-31D1-499D-985A-69CA318BB6C6.webp',
+                'Reception Lehenga': '72B20215-A87C-45DA-8F6B-BA40043EE296.webp'
+            };
+            return imageMap[productName] || 'https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop';
+        }
+
+        // Load user data on page load
+        function loadUserData() {
+            // Check if user is logged in
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if (!isLoggedIn) {
+                alert('Please login first');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                alert('User data not found');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Get first and last name
+            const nameParts = currentUser.name.split(' ');
+            const firstName = nameParts[0] || '';
+            const lastName = nameParts.slice(1).join(' ') || '';
+            const userInitial = firstName.charAt(0).toUpperCase();
+
+            // Display user data in sidebar
+            document.getElementById('profileName').textContent = currentUser.name;
+            document.getElementById('profileEmail').textContent = currentUser.email;
+            document.getElementById('userInitial').textContent = userInitial;
+
+            // Display user data in profile form
+            document.getElementById('firstName').value = firstName;
+            document.getElementById('lastName').value = lastName;
+            document.getElementById('email').value = currentUser.email;
+            document.getElementById('phone').value = currentUser.phone || '';
+
+            // Display address data
+            document.getElementById('address').value = currentUser.address || '';
+            document.getElementById('city').value = currentUser.city || '';
+            document.getElementById('pincode').value = currentUser.pincode || '';
+
+            // Update any order statuses that have passed delivery date, then load orders
+            updateOrderStatusesIfNeeded(currentUser);
+            const refreshedUser = JSON.parse(localStorage.getItem('currentUser')) || currentUser;
+            loadUserOrders(refreshedUser);
+        }
+
+        // Load user's orders
+        function loadUserOrders(currentUser) {
+            const ordersContainer = document.getElementById('ordersContainer');
+            const orders = currentUser.orders || [];
+
+            if (orders.length === 0) {
+                ordersContainer.innerHTML = '<p style="text-align: center; color: var(--text-light); padding: 2rem;">No orders yet. Start shopping to place your first order!</p>';
+                return;
+            }
+
+            // Display orders in reverse order (newest first)
+            const sortedOrders = [...orders].reverse();
+            
+            ordersContainer.innerHTML = sortedOrders.map(order => {
+                const orderItemsHTML = order.items.map(item => {
+                    const lineTotal = item.price * item.quantity;
+                    return `
+                        <div class="order-items">
+                            <img src="${getProductImage(item.name)}" alt="${item.name}" class="order-item-image">
+                            <div class="order-item-details">
+                                <div class="order-item-title">${item.name}</div>
+                                <div style="font-size: 0.9rem; color: var(--text-light);">Qty: ${item.quantity}</div>
+                                <div class="order-item-price">₹${lineTotal.toLocaleString()}</div>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                let statusClass = order.status === 'pending' ? 'status-pending' : 'status-delivered';
+                let statusText = order.status ? (order.status.charAt(0).toUpperCase() + order.status.slice(1)) : 'Pending';
+
+                if (order.deliveryTimestamp) {
+                    const nowTs = Date.now();
+                    if (nowTs >= order.deliveryTimestamp) {
+                        statusClass = 'status-delivered';
+                        statusText = 'Delivered';
+                    } else {
+                        const daysLeft = Math.ceil((order.deliveryTimestamp - nowTs) / (1000 * 60 * 60 * 24));
+                        statusText = `Pending • ${daysLeft} day${daysLeft > 1 ? 's' : ''}`;
+                    }
+                }
+
+                return `
+                    <div class="order-card">
+                        <div class="order-header">
+                            <div>
+                                <div class="order-number">Order #${order.orderNumber}</div>
+                                <div class="order-date">${order.orderDate}</div>
+                            </div>
+                            <span class="order-status ${statusClass}">${statusText}</span>
+                        </div>
+                        ${orderItemsHTML}
+                        <div class="order-total">Total: ₹${order.total.toLocaleString()}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Handle profile update
+        function handleProfileUpdate(event) {
+            event.preventDefault();
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const phone = document.getElementById('phone').value;
+
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const users = JSON.parse(localStorage.getItem('luxeUsers')) || [];
+
+            // Update current user data
+            currentUser.name = `${firstName} ${lastName}`.trim();
+            currentUser.phone = phone;
+
+            // Update in users list
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            // Save updated data
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('luxeUsers', JSON.stringify(users));
+
+            // Update sidebar
+            document.getElementById('profileName').textContent = currentUser.name;
+            const userInitial = firstName.charAt(0).toUpperCase();
+            document.getElementById('userInitial').textContent = userInitial;
+
+            alert('Profile updated successfully!');
+        }
+
+        // Update any pending orders whose deliveryTimestamp has passed to 'delivered'
+        function updateOrderStatusesIfNeeded(currentUser) {
+            const users = JSON.parse(localStorage.getItem('luxeUsers')) || [];
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex === -1) return;
+
+            let updated = false;
+            const nowTs = Date.now();
+
+            users[userIndex].orders = (users[userIndex].orders || []).map(order => {
+                if ((order.status === 'pending' || !order.status) && order.deliveryTimestamp && nowTs >= order.deliveryTimestamp) {
+                    order.status = 'delivered';
+                    updated = true;
+                }
+                return order;
+            });
+
+            if (updated) {
+                // Persist changes
+                localStorage.setItem('luxeUsers', JSON.stringify(users));
+                // Update currentUser and UI
+                const updatedUser = users[userIndex];
+                localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+            }
+        }
+
+        // Handle address update
+        function handleAddressUpdate(event) {
+            event.preventDefault();
+            
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const pincode = document.getElementById('pincode').value;
+
+            // Get current user
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            const users = JSON.parse(localStorage.getItem('luxeUsers')) || [];
+
+            // Update current user data
+            currentUser.address = address;
+            currentUser.city = city;
+            currentUser.pincode = pincode;
+
+            // Update in users list
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+            }
+
+            // Save updated data
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            localStorage.setItem('luxeUsers', JSON.stringify(users));
+
+            alert('Address saved successfully!');
+        }
+
+        // Logout function
+        function logout() {
+            localStorage.removeItem('currentUser');
+            localStorage.removeItem('isLoggedIn');
+            alert('You have been logged out');
+            window.location.href = 'index.html';
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+
+            document.querySelectorAll('.account-menu a').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // Load user data when page loads
+        window.addEventListener('DOMContentLoaded', loadUserData);
+    </script>
+</body>
+</html>

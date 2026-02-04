@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wishlist - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--text-medium);
+        }
+
+        .wishlist-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .wishlist-header {
+            margin-bottom: 2rem;
+        }
+
+        .wishlist-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+        }
+
+        .wishlist-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .wishlist-item {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .wishlist-item:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .wishlist-item.removing {
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .item-image-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        /* ensure image stays below the remove button when scaled */
+        .item-image { position: relative; z-index: 0; }
+
+        .wishlist-item:hover .item-image {
+            transform: scale(1.1);
+        }
+
+        .remove-wishlist {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            z-index: 10; /* keep the button above the image */
+        }
+
+        .remove-wishlist:hover {
+            background: var(--primary-maroon);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--primary-maroon);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+
+        .item-info {
+            padding: 1.5rem;
+        }
+
+        .item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .item-price {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .price-current {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-maroon);
+        }
+
+        .price-old {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-maroon);
+            color: var(--primary-maroon);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        .empty-wishlist {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .empty-wishlist-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-wishlist h2 {
+            font-family: var(--font-serif);
+            margin-bottom: 1rem;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-maroon);
+            color: white;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .continue-shopping:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="index.html#collections">Collections</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span>Wishlist</span>
+    </div>
+
+    <div class="wishlist-container">
+        <div class="wishlist-header">
+            <h1>My Wishlist</h1>
+        </div>
+
+        <div class="wishlist-grid" id="wishlistGrid">
+            <!-- Wishlist items are rendered from localStorage -->
+        </div>
+
+        <div class="empty-wishlist hidden" id="emptyWishlist">
+            <div class="empty-wishlist-icon">❤️</div>
+            <h2>Your wishlist is empty</h2>
+            <p>Start adding items you love to your wishlist.</p>
+            <a href="shop.html" class="continue-shopping">Continue Shopping</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Minimal product catalog for wishlist rendering (kept in sync with shop/product-detail IDs)
+        const PRODUCTS = [
+            { id: 1, title: "Designer Silk Saree", price: 4999, oldPrice: 7999, discount: 30, image: "D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg" },
+            { id: 2, title: "Embroidered Kurti", price: 1999, oldPrice: 2699, discount: 25, image: "64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp" },
+            { id: 3, title: "Bridal Lehenga", price: 24999, oldPrice: 39999, discount: 40, image: "AFFEA1B2-B1CA-4C74-9CA6-1C87D0186E27.avif" },
+            { id: 4, title: "Designer Gown", price: 5999, oldPrice: 7499, discount: 20, image: "EF9E3A48-CDAA-4922-B67D-0A80F3097FE6.jpeg" },
+            { id: 5, title: "Casual Saree", price: 2499, oldPrice: 3999, discount: 35, image: "338C478E-ABED-47EC-9B0C-5C20E1B0CEA0.webp" },
+            { id: 6, title: "Party Wear Kurti", price: 2999, oldPrice: 4299, discount: 30, image: "E8CD3C84-96C1-43AD-B3E7-6686703DEBE7.jpeg" },
+            { id: 7, title: "Designer Lehenga", price: 19999, oldPrice: 26999, discount: 25, image: "0B085768-4223-4C5B-93EB-89A368EDA3C1.jpeg" },
+            { id: 8, title: "Evening Gown", price: 6999, oldPrice: 8799, discount: 20, image: "C364A5D7-83AA-453B-A20B-E6393FF2565F.webp" },
+            { id: 9, title: "Pakistani Salwar Kameez", price: 3499, oldPrice: 4999, discount: 30, image: "C0464442-6943-4F6C-B5FB-6FA5060F36DB.webp" },
+            { id: 10, title: "Wedding Lehenga", price: 29999, oldPrice: 44999, discount: 33, image: "7406512D-7E5D-4FAE-AEC4-4C1B75EE141F.jpeg" },
+            { id: 11, title: "New Casual Saree", price: 1799, oldPrice: 2999, discount: 40, image: "C9332EA9-5901-4F88-9354-8FFA40812181.webp" },
+            { id: 12, title: "Designer Salwar Kameez", price: 4499, oldPrice: 5999, discount: 25, image: "D3541698-BE6F-4F7F-B4BF-781E857FA99F.webp" },
+            { id: 13, title: "Party Wear Saree", price: 3499, oldPrice: 5399, discount: 35, image: "D1F77898-3292-4789-AAFE-C22BEC1BF761.webp" },
+            { id: 14, title: "Casual Kurti", price: 1499, oldPrice: 2199, discount: 32, image: "49C1DCE6-BF43-4D21-85BD-58624CDE7A2C.webp" },
+            { id: 15, title: "Designer Lehenga Choli", price: 22999, oldPrice: 35999, discount: 36, image: "0AE3873E-820A-4388-A1AC-8108DEE9A11E_1_201_a.jpeg" },
+            { id: 16, title: "Cocktail Gown", price: 7999, oldPrice: 9999, discount: 20, image: "DCC68DB8-65C6-478D-8290-858AABC412D1.webp" },
+            { id: 17, title: "Party Wear Salwar Kameez", price: 4999, oldPrice: 6399, discount: 22, image: "AD1B9975-BB16-45EE-8397-2D59847C9C52.jpeg" },
+            { id: 18, title: "Banarasi Silk Saree", price: 8999, oldPrice: 12999, discount: 31, image: "21FE3401-18B4-4FAF-BB06-A4C374DCBE51.webp" },
+            { id: 19, title: "Anarkali Kurti", price: 2499, oldPrice: 3499, discount: 29, image: "8DC0DBA9-007B-4E8A-93A8-E2C525EC8F24.webp" },
+            { id: 20, title: "Reception Lehenga", price: 34999, oldPrice: 54999, discount: 36, image: "72B20215-A87C-45DA-8F6B-BA40043EE296.webp" },
+            { id: 21, title: "Maxi Gown", price: 4999, oldPrice: 6999, discount: 29, image: "DE465FA4-31D1-499D-985A-69CA318BB6C6.webp" },
+            { id: 22, title: "Casual Salwar Kameez", price: 2299, oldPrice: 3299, discount: 30, image: "8C42C2E8-45FE-454D-AAF3-A33F1432C93C.jpeg" },
+            { id: 23, title: "Georgette Saree", price: 2999, oldPrice: 4499, discount: 33, image: "5658A972-BE79-4735-B898-9557B4832293.webp" },
+            { id: 24, title: "Printed Kurti", price: 1299, oldPrice: 1999, discount: 35, image: "12D819EB-A376-4227-8769-4DE3F803914C.webp" }
+        ];
+
+        function getWishlist() {
+            const raw = localStorage.getItem('wishlist');
+            try {
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveWishlist(ids) {
+            localStorage.setItem('wishlist', JSON.stringify(ids));
+        }
+
+        function renderWishlist() {
+            const ids = getWishlist();
+            const grid = document.getElementById('wishlistGrid');
+            const empty = document.getElementById('emptyWishlist');
+
+            if (!ids.length) {
+                grid.classList.add('hidden');
+                empty.classList.remove('hidden');
+                grid.innerHTML = '';
+                return;
+            }
+
+            grid.classList.remove('hidden');
+            empty.classList.add('hidden');
+
+            const items = ids
+                .map(id => PRODUCTS.find(p => p.id === id))
+                .filter(Boolean);
+
+            grid.innerHTML = items.map(p => `
+                <div class="wishlist-item" data-id="${p.id}">
+                    <div class="item-image-wrapper">
+                        <span class="discount-badge">-${p.discount}%</span>
+                        <button class="remove-wishlist" onclick="removeFromWishlist(${p.id})" aria-label="Remove ${p.title} from wishlist" title="Remove">
+                            <!-- Trash / remove SVG icon -->
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                <path d="M3 6h18" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M8 6V4c0-1.1.9-2 2-2h4c1.1 0 2 .9 2 2v2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M10 11v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M14 11v6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </button>
+                        <img src="${p.image}" alt="${p.title}" class="item-image">
+                    </div>
+                    <div class="item-info">
+                        <h3 class="item-title">${p.title}</h3>
+                        <div class="item-price">
+                            <span class="price-current">₹${p.price.toLocaleString()}</span>
+                            <span class="price-old">₹${p.oldPrice.toLocaleString()}</span>
+                        </div>
+                        <div class="item-actions">
+                            <button class="btn btn-primary" onclick="addToCartFromWishlist(${p.id})">Add to Cart</button>
+                            <button class="btn btn-secondary" onclick="window.location.href='product-detail.html?id=${p.id}'">View</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function removeFromWishlist(id) {
+            const card = document.querySelector(`[data-id="${id}"]`);
+            if (card) card.classList.add('removing');
+
+            setTimeout(() => {
+                const next = getWishlist().filter(x => x !== id);
+                saveWishlist(next);
+                renderWishlist();
+            }, 250);
+        }
+
+        // Cart (same schema as index.html: {id, name, price, quantity})
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function addToCartFromWishlist(id) {
+            const p = PRODUCTS.find(x => x.id === id);
+            if (!p) return;
+
+            const cart = getCart();
+            const existing = cart.find(item => item.name === p.title);
+            if (existing) existing.quantity += 24;
+            else cart.push({ id: Date.now(), name: p.title, price: p.price, quantity: 1 });
+            saveCart(cart);
+
+            window.location.href = 'cart.html';
+        }
+
+        // First load: if wishlist not set yet, initialize empty array
+        document.addEventListener('DOMContentLoaded', () => {
+            const existing = localStorage.getItem('wishlist');
+            if (existing === null) saveWishlist([]);
+            renderWishlist();
+        });
+    </script>
+</body>
+</html>

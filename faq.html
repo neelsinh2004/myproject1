@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-maroon: #8B1538; --primary-blue: #1a237e; --primary-black: #0a0a0a;
+            --accent-gold: #d4af37; --text-dark: #1a1a1a; --text-medium: #4a4a4a;
+            --text-light: #8a8a8a; --bg-white: #ffffff; --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif; --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        body { font-family: var(--font-sans); color: var(--text-dark); background: var(--bg-light); }
+        header { background: var(--bg-white); box-shadow: var(--shadow-md); position: sticky; top: 0; z-index: 1000; }
+        .header-content { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { font-weight: 500; transition: color 0.3s ease; }
+        nav a:hover { color: var(--primary-maroon); }
+        .breadcrumb { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; font-size: 0.875rem; color: var(--text-light); }
+        .breadcrumb a { color: var(--text-medium); }
+        .faq-container { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .faq-header { text-align: center; margin-bottom: 3rem; }
+        .faq-header h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 1rem; }
+        .faq-item { background: var(--bg-white); border-radius: 12px; margin-bottom: 1rem; box-shadow: var(--shadow-md); overflow: hidden; }
+        .faq-question { padding: 1.5rem; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-weight: 600; transition: all 0.3s ease; }
+        .faq-question:hover { background: var(--bg-light); }
+        .faq-answer { padding: 0 1.5rem; max-height: 0; overflow: hidden; transition: all 0.3s ease; color: var(--text-medium); }
+        .faq-item.active .faq-answer { padding: 1.5rem; max-height: 500px; }
+        footer { background: var(--primary-black); color: white; padding: 3rem 2rem 1rem; margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h4 { margin-bottom: 1rem; font-family: var(--font-serif); }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.5rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
+        .footer-section a:hover { color: var(--accent-gold); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.7); }
+    </style>
+</head>
+<body>
+    <header><div class="header-content"><div class="logo">Luxe Fashion</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li></ul></nav></div></header>
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <span>FAQ</span></div>
+    <div class="faq-container">
+        <div class="faq-header"><h1>Frequently Asked Questions</h1><p>Find answers to common questions</p></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What is your return policy? <span>+</span></div><div class="faq-answer">We offer 7-day return policy. Items must be unworn with tags attached.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How long does shipping take? <span>+</span></div><div class="faq-answer">Standard shipping takes 5-7 business days. Express shipping available for 2-3 days.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">Do you ship internationally? <span>+</span></div><div class="faq-answer">Yes, we ship to most countries. International shipping takes 10-15 business days.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">What payment methods do you accept? <span>+</span></div><div class="faq-answer">We accept UPI, Credit/Debit cards, and Cash on Delivery.</div></div>
+        <div class="faq-item"><div class="faq-question" onclick="toggleFAQ(this)">How do I track my order? <span>+</span></div><div class="faq-answer">You'll receive a tracking number via email once your order ships.</div></div>
+    </div>
+    <footer><div class="footer-content"><div class="footer-section"><h4>About Us</h4><p>Premium Indian ethnic and modern wear.</p></div><div class="footer-section"><h4>Quick Links</h4><ul><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li><li><a href="faq.html">FAQ</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2024 Luxe Fashion. All rights reserved.</p></div></footer>
+    <script>function toggleFAQ(el){el.parentElement.classList.toggle('active');el.querySelector('span').textContent=el.parentElement.classList.contains('active')?'−':'+';}</script>
+</body>
+</html>

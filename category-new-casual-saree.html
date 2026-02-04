@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-maroon: #8B1538; --primary-blue: #1a237e; --primary-black: #0a0a0a;
+            --accent-gold: #d4af37; --text-dark: #1a1a1a; --text-medium: #4a4a4a;
+            --text-light: #8a8a8a; --bg-white: #ffffff; --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif; --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1); --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+        body { font-family: var(--font-sans); color: var(--text-dark); background: var(--bg-light); }
+        header { background: var(--bg-white); box-shadow: var(--shadow-md); position: sticky; top: 0; z-index: 1000; }
+        .header-content { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-family: var(--font-serif); font-size: 1.8rem; font-weight: 700; background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav a { font-weight: 500; transition: color 0.3s ease; }
+        nav a:hover { color: var(--primary-maroon); }
+        .breadcrumb { max-width: 1400px; margin: 0 auto; padding: 1rem 2rem; font-size: 0.875rem; color: var(--text-light); }
+        .breadcrumb a { color: var(--text-medium); }
+        .category-container { max-width: 1400px; margin: 0 auto; padding: 3rem 2rem; }
+        .category-header { text-align: center; margin-bottom: 3rem; }
+        .category-header h1 { font-family: var(--font-serif); font-size: 2.5rem; margin-bottom: 1rem; }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+        .product-card { background: var(--bg-white); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow-md); transition: all 0.3s ease; cursor: pointer; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+        .product-image-wrapper { position: relative; overflow: hidden; }
+        .product-image { width: 100%; height: 300px; object-fit: cover; transition: transform 0.5s ease; }
+        .product-card:hover .product-image { transform: scale(1.1); }
+        .discount-badge { position: absolute; top: 1rem; right: 1rem; background: var(--primary-maroon); color: white; padding: 0.5rem 1rem; border-radius: 25px; font-weight: 600; font-size: 0.875rem; }
+        .product-info { padding: 1.5rem; }
+        .product-title { font-weight: 600; margin-bottom: 0.5rem; }
+        .product-price { display: flex; gap: 1rem; align-items: center; }
+        .price-current { font-size: 1.25rem; font-weight: 700; color: var(--primary-maroon); }
+        .price-old { font-size: 0.9rem; color: var(--text-light); text-decoration: line-through; }
+        footer { background: var(--primary-black); color: white; padding: 3rem 2rem 1rem; margin-top: 4rem; }
+        .footer-content { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 2rem; margin-bottom: 2rem; }
+        .footer-section h4 { margin-bottom: 1rem; font-family: var(--font-serif); }
+        .footer-section ul { list-style: none; }
+        .footer-section ul li { margin-bottom: 0.5rem; }
+        .footer-section a { color: rgba(255, 255, 255, 0.7); transition: color 0.3s ease; }
+        .footer-section a:hover { color: var(--accent-gold); }
+        .footer-bottom { text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.1); color: rgba(255, 255, 255, 0.7); }
+    </style>
+</head>
+<body>
+    <header><div class="header-content"><div class="logo">Luxe Fashion</div><nav><ul><li><a href="index.html">Home</a></li><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li></ul></nav></div></header>
+    <div class="breadcrumb"><a href="index.html">Home</a> <span>/</span> <a href="shop.html">Shop</a> <span>/</span> <span>New</span></div>
+    <div class="category-container">
+        <div class="category-header"><h1>New Casual Saree Collection</h1><p>Latest casual saree designs</p></div>
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+    <footer><div class="footer-content"><div class="footer-section"><h4>About Us</h4><p>Premium Indian ethnic and modern wear.</p></div><div class="footer-section"><h4>Quick Links</h4><ul><li><a href="shop.html">Shop</a></li><li><a href="contact.html">Contact</a></li></ul></div></div><div class="footer-bottom"><p>&copy; 2024 Luxe Fashion. All rights reserved.</p></div></footer>
+    <script>
+        const products = [
+            { id: 1, title: "New Item 1", price: 2999, oldPrice: 4999, discount: 40, image: "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400" },
+            { id: 2, title: "New Item 2", price: 3999, oldPrice: 5999, discount: 33, image: "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400" },
+            { id: 3, title: "New Item 3", price: 4999, oldPrice: 7999, discount: 38, image: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400" }
+        ];
+        function renderProducts() {
+            document.getElementById('productsGrid').innerHTML = products.map(p => `
+                <div class="product-card" onclick="window.location.href='product-detail.html?id=${p.id}'">
+                    <div class="product-image-wrapper"><span class="discount-badge">-${p.discount}%</span><img src="${p.image}" alt="${p.title}" class="product-image"></div>
+                    <div class="product-info"><h3 class="product-title">${p.title}</h3><div class="product-price"><span class="price-current">₹${p.price.toLocaleString()}</span><span class="price-old">₹${p.oldPrice.toLocaleString()}</span></div></div>
+                </div>
+            `).join('');
+        }
+        renderProducts();
+    </script>
+</body>
+</html>

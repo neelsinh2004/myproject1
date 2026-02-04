@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitemap - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+            --shadow-xl: 0 12px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--text-medium);
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .sitemap-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .sitemap-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .sitemap-header h1 {
+            font-family: var(--font-serif);
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sitemap-header p {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+        }
+
+        .sitemap-header::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-maroon), var(--accent-gold), var(--primary-blue));
+            border-radius: 2px;
+        }
+
+        .sitemap-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .sitemap-card {
+            background: var(--bg-white);
+            border-radius: 16px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow-md);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sitemap-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-maroon), var(--primary-blue));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .sitemap-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .sitemap-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-title {
+            font-family: var(--font-serif);
+            font-size: 1.75rem;
+            color: var(--text-dark);
+        }
+
+        .sitemap-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .sitemap-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 1.25rem;
+            border-radius: 10px;
+            color: var(--text-medium);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            background: var(--bg-light);
+        }
+
+        .sitemap-link::before {
+            content: '→';
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+            color: var(--primary-maroon);
+            font-weight: bold;
+        }
+
+        .sitemap-link:hover {
+            background: linear-gradient(135deg, rgba(139, 21, 56, 0.05), rgba(26, 35, 126, 0.05));
+            color: var(--primary-maroon);
+            transform: translateX(5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .sitemap-link:hover::before {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .link-icon {
+            font-size: 1.2rem;
+            width: 24px;
+            text-align: center;
+        }
+
+        .link-text {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            border-radius: 20px;
+            padding: 3rem;
+            margin-top: 4rem;
+            color: white;
+            text-align: center;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat-item {
+            padding: 1.5rem;
+        }
+
+        .stat-number {
+            font-family: var(--font-serif);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-gold);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .sitemap-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .sitemap-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Fade in animation */
+        .sitemap-card {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .sitemap-card:nth-child(1) { animation-delay: 0.1s; }
+        .sitemap-card:nth-child(2) { animation-delay: 0.2s; }
+        .sitemap-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="index.html#collections">Collections</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span>Sitemap</span>
+    </div>
+
+    <div class="sitemap-container">
+        <div class="sitemap-header">
+            <h1>Site Map</h1>
+            <p>Navigate through all our pages and discover everything we offer</p>
+        </div>
+
+        <div class="sitemap-grid">
+            <div class="sitemap-card">
+                <div class="card-header">
+                    <div class="card-icon">🏠</div>
+                    <h2 class="card-title">Main Pages</h2>
+                </div>
+                <div class="sitemap-links">
+                    <a href="index.html" class="sitemap-link">
+                        <span class="link-icon">🏡</span>
+                        <span class="link-text">Home</span>
+                    </a>
+                    <a href="shop.html" class="sitemap-link">
+                        <span class="link-icon">🛍️</span>
+                        <span class="link-text">Shop</span>
+                    </a>
+                    <a href="product-detail.html" class="sitemap-link">
+                        <span class="link-icon">👗</span>
+                        <span class="link-text">Product Detail</span>
+                    </a>
+                    <a href="cart.html" class="sitemap-link">
+                        <span class="link-icon">🛒</span>
+                        <span class="link-text">Shopping Cart</span>
+                    </a>
+                    <a href="checkout.html" class="sitemap-link">
+                        <span class="link-icon">💳</span>
+                        <span class="link-text">Checkout</span>
+                    </a>
+                    <a href="order-confirmation.html" class="sitemap-link">
+                        <span class="link-icon">✅</span>
+                        <span class="link-text">Order Confirmation</span>
+                    </a>
+                    <a href="login.html" class="sitemap-link">
+                        <span class="link-icon">🔐</span>
+                        <span class="link-text">Login / Sign Up</span>
+                    </a>
+                    <a href="account.html" class="sitemap-link">
+                        <span class="link-icon">👤</span>
+                        <span class="link-text">My Account</span>
+                    </a>
+                    <a href="wishlist.html" class="sitemap-link">
+                        <span class="link-icon">❤️</span>
+                        <span class="link-text">Wishlist</span>
+                    </a>
+                    <a href="compare.html" class="sitemap-link">
+                        <span class="link-icon">🔄</span>
+                        <span class="link-text">Compare Products</span>
+                    </a>
+                    <a href="contact.html" class="sitemap-link">
+                        <span class="link-icon">📞</span>
+                        <span class="link-text">Contact Us</span>
+                    </a>
+                    <a href="faq.html" class="sitemap-link">
+                        <span class="link-icon">❓</span>
+                        <span class="link-text">FAQ</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sitemap-card">
+                <div class="card-header">
+                    <div class="card-icon">📋</div>
+                    <h2 class="card-title">Policy Pages</h2>
+                </div>
+                <div class="sitemap-links">
+                    <a href="terms.html" class="sitemap-link">
+                        <span class="link-icon">📜</span>
+                        <span class="link-text">Terms & Conditions</span>
+                    </a>
+                    <a href="privacy.html" class="sitemap-link">
+                        <span class="link-icon">🔒</span>
+                        <span class="link-text">Privacy Policy</span>
+                    </a>
+                    <a href="shipping.html" class="sitemap-link">
+                        <span class="link-icon">🚚</span>
+                        <span class="link-text">Shipping Policy</span>
+                    </a>
+                    <a href="return.html" class="sitemap-link">
+                        <span class="link-icon">↩️</span>
+                        <span class="link-text">Return Policy</span>
+                    </a>
+                    <a href="cookie.html" class="sitemap-link">
+                        <span class="link-icon">🍪</span>
+                        <span class="link-text">Cookie Policy</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="sitemap-card">
+                <div class="card-header">
+                    <div class="card-icon">👗</div>
+                    <h2 class="card-title">Categories</h2>
+                </div>
+                <div class="sitemap-links">
+                    <a href="category-designer-saree.html" class="sitemap-link">
+                        <span class="link-icon">✨</span>
+                        <span class="link-text">Designer Saree</span>
+                    </a>
+                    <a href="category-casual-saree.html" class="sitemap-link">
+                        <span class="link-icon">👘</span>
+                        <span class="link-text">Casual Saree</span>
+                    </a>
+                    <a href="category-party-saree.html" class="sitemap-link">
+                        <span class="link-icon">🎉</span>
+                        <span class="link-text">Party Wear Saree</span>
+                    </a>
+                    <a href="category-new-casual-saree.html" class="sitemap-link">
+                        <span class="link-icon">🆕</span>
+                        <span class="link-text">New Casual Saree</span>
+                    </a>
+                    <a href="category-designer-salwar.html" class="sitemap-link">
+                        <span class="link-icon">👔</span>
+                        <span class="link-text">Designer Salwar Kameez</span>
+                    </a>
+                    <a href="category-pakistani-salwar.html" class="sitemap-link">
+                        <span class="link-icon">🇵🇰</span>
+                        <span class="link-text">Pakistani Salwar Kameez</span>
+                    </a>
+                    <a href="category-party-salwar.html" class="sitemap-link">
+                        <span class="link-icon">🎊</span>
+                        <span class="link-text">Party Wear Salwar Kameez</span>
+                    </a>
+                    <a href="category-casual-salwar.html" class="sitemap-link">
+                        <span class="link-icon">👕</span>
+                        <span class="link-text">Casual Salwar Kameez</span>
+                    </a>
+                    <a href="category-party-kurti.html" class="sitemap-link">
+                        <span class="link-icon">👚</span>
+                        <span class="link-text">Party Wear Kurti</span>
+                    </a>
+                    <a href="category-casual-kurti.html" class="sitemap-link">
+                        <span class="link-icon">👖</span>
+                        <span class="link-text">Casual Kurti</span>
+                    </a>
+                    <a href="category-designer-gown.html" class="sitemap-link">
+                        <span class="link-icon">👗</span>
+                        <span class="link-text">Designer Gown</span>
+                    </a>
+                    <a href="category-designer-lehenga.html" class="sitemap-link">
+                        <span class="link-icon">💃</span>
+                        <span class="link-text">Designer Lehenga Choli</span>
+                    </a>
+                    <a href="category-wedding-lehenga.html" class="sitemap-link">
+                        <span class="link-icon">💍</span>
+                        <span class="link-text">Wedding Lehenga</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <h2 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 1rem;">Website Overview</h2>
+            <p style="opacity: 0.9; margin-bottom: 1rem;">Explore our complete collection</p>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">31</div>
+                    <div class="stat-label">Total Pages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">13</div>
+                    <div class="stat-label">Product Categories</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Policy Pages</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">10</div>
+                    <div class="stat-label">Main Features</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

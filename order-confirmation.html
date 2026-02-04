@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .confirmation-container {
+            max-width: 800px;
+            margin: 4rem auto;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .success-animation {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .success-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            animation: scaleIn 0.5s ease;
+            box-shadow: var(--shadow-lg);
+        }
+
+        @keyframes scaleIn {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .confirmation-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-maroon);
+        }
+
+        .confirmation-message {
+            font-size: 1.2rem;
+            color: var(--text-medium);
+            margin-bottom: 3rem;
+        }
+
+        .order-details {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .order-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-maroon);
+            margin-bottom: 1rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+        .detail-label {
+            color: var(--text-light);
+        }
+
+        .detail-value {
+            font-weight: 600;
+        }
+
+        .order-items {
+            margin-top: 2rem;
+        }
+
+        .order-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .order-item:last-child {
+            border-bottom: none;
+        }
+
+        .order-item-image {
+            width: 80px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .order-item-details {
+            flex: 1;
+        }
+
+        .order-item-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-item-price {
+            color: var(--primary-maroon);
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--primary-maroon);
+            border: 2px solid var(--primary-maroon);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: auto;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+        </div>
+    </header>
+
+    <div class="confirmation-container">
+        <div class="success-animation">
+            <div class="success-circle">✓</div>
+        </div>
+        <h1 class="confirmation-title">Order Confirmed!</h1>
+        <p class="confirmation-message">Thank you for your purchase. Your order has been successfully placed.</p>
+
+        <div class="order-details">
+            <div class="order-number" id="orderNumber">Order #ORD-2024-001234</div>
+            <div class="detail-row">
+                <span class="detail-label">Order Date</span>
+                <span class="detail-value" id="orderDate">January 15, 2024</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Payment Method</span>
+                <span class="detail-value" id="paymentMethod">Cash on Delivery</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Total Amount</span>
+                <span class="detail-value" id="orderTotal">₹0</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Expected Delivery</span>
+                <span class="detail-value" id="deliveryDate">January 20, 2024</span>
+            </div>
+
+            <div class="order-items" id="orderItems">
+                <h3 style="margin-bottom: 1rem; font-family: var(--font-serif);">Order Items</h3>
+                <!-- Items from last order will be injected here -->
+            </div>
+        </div>
+
+        <div class="action-buttons">
+            <a href="account.html" class="btn btn-primary">View Order Details</a>
+            <a href="shop.html" class="btn btn-secondary">Continue Shopping</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+    <script>
+        function getProductImage(productName) {
+            const imageMap = {
+                'Designer Silk Saree': 'D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg',
+                'Embroidered Kurti': '64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp',
+                'Bridal Lehenga': 'AFFEA1B2-B1CA-4C74-9CA6-1C87D0186E27.avif',
+                'Designer Gown': 'EF9E3A48-CDAA-4922-B67D-0A80F3097FE6.jpeg',
+                'Casual Saree': '338C478E-ABED-47EC-9B0C-5C20E1B0CEA0.webp',
+                'Party Wear Kurti': 'E8CD3C84-96C1-43AD-B3E7-6686703DEBE7.jpeg',
+                'Designer Lehenga': '0B085768-4223-4C5B-93EB-89A368EDA3C1.jpeg',
+                'Evening Gown': 'C364A5D7-83AA-453B-A20B-E6393FF2565F.webp',
+                'Pakistani Salwar Kameez': 'C0464442-6943-4F6C-B5FB-6FA5060F36DB.webp',
+                'Wedding Lehenga': '7406512D-7E5D-4FAE-AEC4-4C1B75EE141F.jpeg',
+                'New Casual Saree': 'C9332EA9-5901-4F88-9354-8FFA40812181.webp',
+                'Designer Salwar Kameez': 'D3541698-BE6F-4F7F-B4BF-781E857FA99F.webp',
+                'Party Wear Saree': 'D1F77898-3292-4789-AAFE-C22BEC1BF761.webp',
+                'Casual Kurti': '49C1DCE6-BF43-4D21-85BD-58624CDE7A2C.webp',
+                'Designer Lehenga Choli': '0AE3873E-820A-4388-A1AC-8108DEE9A11E_1_201_a.jpeg',
+                'Anarkali Kurti': '8DC0DBA9-007B-4E8A-93A8-E2C525EC8F24.webp',
+                'Party Wear Salwar Kameez': 'AD1B9975-BB16-45EE-8397-2D59847C9C52.jpeg',
+                'Cocktail Gown': 'DCC68DB8-65C6-478D-8290-858AABC412D1.webp',
+                'Banarasi Silk Saree': '21FE3401-18B4-4FAF-BB06-A4C374DCBE51.webp',
+                'Printed Kurti': '12D819EB-A376-4227-8769-4DE3F803914C.webp',
+                'Georgette Saree': '5658A972-BE79-4735-B898-9557B4832293.webp',
+                 'Casual Salwar Kameez': '8C42C2E8-45FE-454D-AAF3-A33F1432C93C.jpeg',
+                 'Maxi Gown': 'DE465FA4-31D1-499D-985A-69CA318BB6C6.webp',
+                 'Reception Lehenga': '72B20215-A87C-45DA-8F6B-BA40043EE296.webp'
+            };
+            return imageMap[productName] || 'https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop';
+        }
+
+        function humanPaymentLabel(value) {
+            if (value === 'upi') return 'UPI';
+            if (value === 'card') return 'Credit/Debit Card';
+            if (value === 'cod') return 'Cash on Delivery';
+            return value || 'Cash on Delivery';
+        }
+
+        function loadLastOrder() {
+            const raw = localStorage.getItem('lastOrder');
+            if (!raw) {
+                // Fallback if user opens confirmation directly
+                return;
+            }
+
+            let data;
+            try {
+                data = JSON.parse(raw);
+            } catch {
+                return;
+            }
+
+            if (!data || !Array.isArray(data.items) || data.items.length === 0) {
+                return;
+            }
+
+            document.getElementById('orderNumber').textContent = data.orderNumber || 'Order Confirmed';
+            if (data.orderDate) {
+                document.getElementById('orderDate').textContent = data.orderDate;
+            }
+            if (data.deliveryDate) {
+                document.getElementById('deliveryDate').textContent = data.deliveryDate;
+            }
+            document.getElementById('paymentMethod').textContent = humanPaymentLabel(data.paymentMethod);
+            if (typeof data.total === 'number') {
+                document.getElementById('orderTotal').textContent = `₹${data.total.toLocaleString()}`;
+            }
+
+            const itemsContainer = document.getElementById('orderItems');
+            const existingTitle = itemsContainer.querySelector('h3');
+
+            itemsContainer.innerHTML = existingTitle ? existingTitle.outerHTML : '';
+
+            itemsContainer.innerHTML += data.items.map(item => {
+                const lineTotal = item.price * item.quantity;
+                return `
+                    <div class="order-item">
+                        <img src="${getProductImage(item.name)}" alt="${item.name}" class="order-item-image">
+                        <div class="order-item-details">
+                            <div class="order-item-title">${item.name}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-light);">Qty: ${item.quantity}</div>
+                            <div class="order-item-price">₹${lineTotal.toLocaleString()}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Load order summary on page load
+        loadLastOrder();
+    </script>
+</body>
+</html>

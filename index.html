@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxe Fashion - Premium Indian Ethnic & Modern Wear</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/responsive.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            width: 250px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-maroon);
+            width: 300px;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .icon-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-maroon);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-badge.show {
+            display: flex;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(135deg,rgba(130, 80, 47, 0.9), rgba(54, 58, 103, 0.9)), url('A2E836ED-C919-41D0-8C31-DFF03F0418DB.png') center/cover;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: rgb(27, 17, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.2s both;
+        }
+
+        .hero-cta {
+            animation: fadeInUp 1s ease 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            font-weight: 600;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: var(--accent-gold);
+            color: var(--text-dark);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-primary::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn-primary:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        /* Featured Collections */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-maroon), var(--accent-gold));
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+
+        .collection-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .collection-card img {
+            width: 100%;
+            height: 430px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .collection-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            padding: 2rem;
+            color: white;
+        }
+
+        .collection-overlay h3 {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-light);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.1);
+        }
+
+        .discount-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary-maroon);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            z-index: 10;
+        }
+
+        .product-actions {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .product-card:hover .product-actions {
+            opacity: 1;
+        }
+
+        .action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-maroon);
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .product-price {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .price-current {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-maroon);
+        }
+
+        .price-old {
+            font-size: 1rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: var(--bg-light);
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .testimonial-rating {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            color: var(--text-medium);
+        }
+
+        .testimonial-author {
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .search-input {
+                width: 200px;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.2rem;
+            }
+
+            .collections-grid,
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+        }
+
+        /* Scroll Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#collections">Collections</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-container">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" class="search-input" placeholder="Search products...">
+                </div>
+                <a href="#" class="icon-btn" title="Account" aria-label="Account" onclick="handleAccountClick(event)">
+                    <!-- User account SVG icon -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 12c2.7614 0 5-2.2386 5-5s-2.2386-5-5-5-5 2.2386-5 5 2.2386 5 5 5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 21c0-3.866-3.582-7-8-7s-8 3.134-8 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <button class="icon-btn" onclick="goToWishlist()" title="Wishlist">❤️</button>
+                <button class="icon-btn" onclick="goToCart()" title="Shopping Cart">
+                    🛒
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Elegance Redefined</h1>
+            <p>Discover Premium Indian Ethnic & Modern Wear</p>
+            <div class="hero-cta">
+                <a href="shop.html" class="btn btn-primary">Shop Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Collections -->
+    <section class="section" id="collections">
+        <h2 class="section-title fade-in">Featured Collections</h2>
+        <div class="collections-grid">
+            <div class="collection-card fade-in">
+                <img src="BEF87F4B-376A-4B7F-B110-3CE69623717F_1_201_a.jpeg" alt="Saree Collection">
+                <div class="collection-overlay">
+                    <h3>Saree</h3>
+                    <p>Timeless Elegance</p>
+                </div>
+            </div>
+            <div class="collection-card fade-in">
+                <img src="/Users/chauhanneelsinh/Desktop/class/visual code/internship/ecommercethatend1/A94D308F-7381-41E7-8EE0-E726B93AB02A.webp" alt="Kurti Collection">
+                <div class="collection-overlay">
+                    <h3>Kurti</h3>
+                    <p>Comfort & Style</p>
+                </div>
+            </div>
+            <div class="collection-card fade-in">
+                <img src="D1D5DF60-173A-49A2-A8E3-5249D2D14168.jpeg" alt="Lehenga Collection">
+                <div class="collection-overlay">
+                    <h3>Lehenga</h3>
+                    <p>Royal Grandeur</p>
+                </div>
+            </div>
+            <div class="collection-card fade-in">
+                <img src="5EBC68C4-806C-4486-A8EC-70E17108E1A1.jpeg" alt="Gown Collection">
+                <div class="collection-overlay">
+                    <h3>Gown</h3>
+                    <p>Modern Sophistication</p>
+                </div>
+            </div>
+            <div class="collection-card fade-in">
+                <img src="686A18D8-5920-41C7-8550-FBE53C97AA39.webp" alt="Salwar Kameez Collection">
+                <div class="collection-overlay">
+                    <h3>Salwar Kameez</h3>
+                    <p>Traditional Comfort</p>
+                </div>
+            </div>
+            <div class="collection-card fade-in">
+                <img src="12D819EB-A376-4227-8769-4DE3F803914C.webp" alt="Printed Kurti">
+                <div class="collection-overlay">
+                    <h3>Printed Kurti</h3>
+                    <p>Perfect Companion</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- New Arrivals -->
+    <section class="section">
+        <h2 class="section-title fade-in">New Arrivals</h2>
+        <div class="products-grid">
+            <div class="product-card fade-in" data-product-id="1">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-30%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Designer Silk Saree', 4999, 'D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg')">🛒</button>
+                    </div>
+                    <img src="/Users/chauhanneelsinh/Desktop/class/visual code/internship/ecommercethatend1/D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg" alt="Designer Silk Saree" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Designer Silk Saree</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹4,999</span>
+                        <span class="price-old">₹7,999</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="2">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-25%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Embroidered Kurti', 1999, 'https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp" alt="Embroidered Kurti" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Embroidered Kurti</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹1,999</span>
+                        <span class="price-old">₹2,699</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="3">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-40%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Bridal Lehenga', 24999, 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="AFFEA1B2-B1CA-4C74-9CA6-1C87D0186E27.avif" alt="Bridal Lehenga" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Bridal Lehenga</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹24,999</span>
+                        <span class="price-old">₹39,999</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="4">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-20%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Designer Gown', 5999, 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="EF9E3A48-CDAA-4922-B67D-0A80F3097FE6.jpeg" alt="Designer Gown" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Designer Gown</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹5,999</span>
+                        <span class="price-old">₹7,499</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="13">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-35%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Party Wear Saree', 3499, 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="D1F77898-3292-4789-AAFE-C22BEC1BF761.webp" alt="Party Wear Saree" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Party Wear Saree</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹3,499</span>
+                        <span class="price-old">₹5,399</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="12">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-28%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Designer Salwar Kameez', 4499, 'https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="D3541698-BE6F-4F7F-B4BF-781E857FA99F.webp" alt="Designer Salwar Kameez" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Designer Salwar Kameez</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹4,499</span>
+                        <span class="price-old">₹6,299</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="14">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-32%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Casual Kurti', 1499, 'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="49C1DCE6-BF43-4D21-85BD-58624CDE7A2C.webp" alt="Casual Kurti" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Casual Kurti</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹1,499</span>
+                        <span class="price-old">₹2,199</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="10">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-38%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Wedding Lehenga', 29999, 'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="7406512D-7E5D-4FAE-AEC4-4C1B75EE141F.jpeg" alt="Wedding Lehenga" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Wedding Lehenga</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹29,999</span>
+                        <span class="price-old">₹48,399</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers -->
+    <section class="section">
+        <h2 class="section-title fade-in">Best Sellers</h2>
+        <div class="products-grid">
+            <div class="product-card fade-in" data-product-id="5">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-35%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Casual Saree', 2499, 'https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="338C478E-ABED-47EC-9B0C-5C20E1B0CEA0.webp" alt="Casual Saree" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Casual Saree</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹2,499</span>
+                        <span class="price-old">₹3,999</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="6">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-30%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Party Wear Kurti', 2999, 'https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="E8CD3C84-96C1-43AD-B3E7-6686703DEBE7.jpeg" alt="Party Wear Kurti" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Party Wear Kurti</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹2,999</span>
+                        <span class="price-old">₹4,299</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="7">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-25%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Designer Lehenga', 19999, 'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="0B085768-4223-4C5B-93EB-89A368EDA3C1.jpeg" alt="Designer Lehenga" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Designer Lehenga</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹19,999</span>
+                        <span class="price-old">₹26,999</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="8">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-20%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Evening Gown', 6999, 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="C364A5D7-83AA-453B-A20B-E6393FF2565F.webp" alt="Evening Gown" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Evening Gown</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹6,999</span>
+                        <span class="price-old">₹8,799</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="11">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-33%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'New Casual Saree', 1799, 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="C9332EA9-5901-4F88-9354-8FFA40812181.webp" alt="New Casual Saree" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">New Casual Saree</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹1,799</span>
+                        <span class="price-old">₹2,699</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="9">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-27%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Pakistani Salwar Kameez', 3499, 'https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="C0464442-6943-4F6C-B5FB-6FA5060F36DB.webp" alt="Pakistani Salwar Kameez" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Pakistani Salwar Kameez</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹3,499</span>
+                        <span class="price-old">₹4,799</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in" data-product-id="17">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-22%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Party Wear Salwar Kameez', 4999, 'https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop')">🛒</button>
+                    </div>
+                    <img src="AD1B9975-BB16-45EE-8397-2D59847C9C52.jpeg" alt="Party Wear Salwar Kameez" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Party Wear Salwar Kameez</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹4,999</span>
+                        <span class="price-old">₹6,399</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in">
+                <div class="product-image-wrapper">
+                    <span class="discount-badge">-36%</span>
+                    <div class="product-actions">
+                        <button class="action-btn" onclick="event.stopPropagation(); addToWishlistFromCard(this)">❤️</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCompareFromCard(this)">🔄</button>
+                        <button class="action-btn" onclick="event.stopPropagation(); addToCartFromCard(this, 'Designer Lehenga Choli', 22999)">🛒</button>
+                    </div>
+                    <img src="0AE3873E-820A-4388-A1AC-8108DEE9A11E_1_201_a.jpeg" alt="Designer Lehenga Choli" class="product-image">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Designer Lehenga Choli</h3>
+                    <div class="product-price">
+                        <span class="price-current">₹22,999</span>
+                        <span class="price-old">₹35,999</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section testimonials">
+        <h2 class="section-title fade-in">What Our Customers Say</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Absolutely stunning collection! The quality is exceptional and the designs are so elegant."</p>
+                <div class="testimonial-author">- Priya Sharma</div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"Best online shopping experience for ethnic wear. Fast delivery and perfect fit!"</p>
+                <div class="testimonial-author">- Anjali Patel</div>
+            </div>
+            <div class="testimonial-card fade-in">
+                <div class="testimonial-rating">★★★★★</div>
+                <p class="testimonial-text">"The lehenga I bought was exactly as shown. Highly recommend this store!"</p>
+                <div class="testimonial-author">- Meera Desai</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Cart Management System
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const cart = getCart();
+            const badge = document.getElementById('cartBadge');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            if (totalItems > 0) {
+                badge.textContent = totalItems;
+                badge.classList.add('show');
+            } else {
+                badge.classList.remove('show');
+            }
+        }
+
+        function addToCartFromCard(btn, productName, productPrice) {
+            const cart = getCart();
+            const productId = Date.now(); // Generate unique ID
+            
+            // Check if product already exists
+            const existingItem = cart.find(item => item.name === productName);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: productId,
+                    name: productName,
+                    price: productPrice,
+                    quantity: 1
+                });
+            }
+            
+            saveCart(cart);
+            
+            // Visual feedback
+            btn.style.background = 'var(--primary-maroon)';
+            btn.style.color = 'white';
+            const originalText = btn.textContent;
+            btn.textContent = '✓';
+            
+            setTimeout(() => {
+                btn.style.background = '';
+                btn.style.color = '';
+                btn.textContent = originalText;
+            }, 1500);
+            
+            // Animate badge
+            const badge = document.getElementById('cartBadge');
+            badge.style.transform = 'scale(1.5)';
+            setTimeout(() => {
+                badge.style.transform = 'scale(1)';
+            }, 300);
+        }
+
+        function getWishlist() {
+            const raw = localStorage.getItem('wishlist');
+            try {
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveWishlist(ids) {
+            localStorage.setItem('wishlist', JSON.stringify(ids));
+        }
+
+        function addToWishlistFromCard(btn) {
+            const card = btn.closest('.product-card');
+            const productId = card ? parseInt(card.getAttribute('data-product-id')) : null;
+
+            // Append the selected product to wishlist (if not already present)
+            if (!productId) {
+                // Fallback: try to map from title
+                const title = card?.querySelector('.product-title')?.textContent?.trim();
+                const map = {
+                    'Designer Silk Saree': 1,
+                    'Embroidered Kurti': 2,
+                    'Bridal Lehenga': 3,
+                    'Designer Gown': 4,
+                    'Casual Saree': 5,
+                    'Party Wear Kurti': 6,
+                    'Designer Lehenga': 7,
+                    'Evening Gown': 8,
+                    'Pakistani Salwar Kameez': 9,
+                    'Wedding Lehenga': 10,
+                    'New Casual Saree': 11,
+                    'Designer Salwar Kameez': 12,
+                    'Party Wear Saree': 13,
+                    'Casual Kurti': 14,
+                    'Designer Lehenga Choli': 15,
+                    'Cocktail Gown': 16,
+                    'Party Wear Salwar Kameez': 17,
+                    'Banarasi Silk Saree': 18,
+                    'Anarkali Kurti': 19,
+                    'Reception Lehenga': 20,
+                    'Maxi Gown': 21,
+                    'Casual Salwar Kameez': 22,
+                    'Georgette Saree': 23,
+                    'Printed Kurti': 24
+                };
+                if (title && map[title]) {
+                    const ids = getWishlist();
+                    if (!ids.includes(map[title])) ids.push(map[title]);
+                    saveWishlist(ids);
+                }
+            } else {
+                const ids = getWishlist();
+                if (!ids.includes(productId)) ids.push(productId);
+                saveWishlist(ids);
+            }
+
+            // UI feedback
+            btn.style.background = 'var(--primary-maroon)';
+            btn.style.color = 'white';
+            setTimeout(() => {
+                btn.style.background = '';
+                btn.style.color = '';
+            }, 1000);
+        }
+
+        function addToCompareFromCard(btn) {
+            const card = btn.closest('.product-card');
+            if (!card) return;
+
+            const id = parseInt(card.getAttribute('data-product-id')) || Date.now();
+            const title = card.querySelector('.product-title')?.textContent?.trim() || 'Product';
+            const priceText = card.querySelector('.price-current')?.textContent || '₹0';
+            const price = parseInt(priceText.replace(/[^\d]/g, ''), 10) || 0;
+            const image = card.querySelector('.product-image')?.getAttribute('src') || '';
+
+            const compareItem = { id, title, price, image };
+
+            const raw = localStorage.getItem('compare');
+            let list = [];
+            try {
+                list = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(list)) list = [];
+            } catch {
+                list = [];
+            }
+
+            if (!list.some(p => p.id === compareItem.id)) {
+                list.push(compareItem);
+            }
+
+            // Limit to 4 items for a clean compare table
+            if (list.length > 4) list = list.slice(list.length - 4);
+
+            localStorage.setItem('compare', JSON.stringify(list));
+
+            // UI feedback + go to compare page
+            btn.style.background = 'var(--primary-blue)';
+            btn.style.color = 'white';
+            setTimeout(() => {
+                btn.style.background = '';
+                btn.style.color = '';
+                window.location.href = 'compare.html';
+            }, 300);
+        }
+
+        // Initialize cart badge on page load
+        updateCartBadge();
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Search animation + behavior
+        const searchInput = document.querySelector('.search-input');
+        searchInput.addEventListener('focus', function() {
+            this.style.width = '300px';
+        });
+        searchInput.addEventListener('blur', function() {
+            if (window.innerWidth > 768) {
+                this.style.width = '250px';
+            }
+        });
+
+        function performSearch() {
+            const query = searchInput.value.trim();
+            if (!query) return;
+            window.location.href = `shop.html?search=${encodeURIComponent(query)}`;
+        }
+
+        // Press Enter to search
+        searchInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                performSearch();
+            }
+        });
+
+        // Click search icon to search
+        const searchIcon = document.querySelector('.search-icon');
+        if (searchIcon) {
+            searchIcon.style.cursor = 'pointer';
+            searchIcon.addEventListener('click', function () {
+                performSearch();
+            });
+        }
+
+        // Collection card click
+        document.querySelectorAll('.collection-card').forEach(card => {
+            card.addEventListener('click', function() {
+                window.location.href = 'shop.html';
+            });
+        });
+
+        // Product card click - Updated to use product IDs
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('.product-actions')) {
+                    const productId = card.getAttribute('data-product-id');
+                    if (productId) {
+                        window.location.href = `product-detail.html?id=${productId}`;
+                    } else {
+                        // Fallback: try to get product ID from product title
+                        const productTitle = card.querySelector('.product-title')?.textContent;
+                        const productIdMap = {
+                            'Designer Silk Saree': 1,
+                            'Embroidered Kurti': 2,
+                            'Bridal Lehenga': 3,
+                            'Designer Gown': 4,
+                            'Casual Saree': 5,
+                            'Party Wear Kurti': 6,
+                            'Designer Lehenga': 7,
+                            'Evening Gown': 8,
+                            'Pakistani Salwar Kameez': 9,
+                            'Wedding Lehenga': 10,
+                            'New Casual Saree': 11,
+                            'Designer Salwar Kameez': 12,
+                            'Party Wear Saree': 13,
+                            'Casual Kurti': 14,
+                            'Designer Lehenga Choli': 15,
+                            'Cocktail Gown': 16,
+                            'Party Wear Salwar Kameez': 17,
+                            'Banarasi Silk Saree': 18,
+                            'Anarkali Kurti': 19,
+                            'Reception Lehenga': 20,
+                            'Maxi Gown': 21,
+                            'Casual Salwar Kameez': 22,
+                            'Georgette Saree': 23,
+                            'Printed Kurti': 24,
+                            'Party Wear Salwar': 17
+                        };
+                        const id = productIdMap[productTitle];
+                        if (id) {
+                            window.location.href = `product-detail.html?id=${id}`;
+                        } else {
+                            window.location.href = 'product-detail.html?id=1';
+                        }
+                    }
+                }
+            });
+        });
+
+        // Wishlist button click
+        function goToWishlist() {
+            const btn = event.target.closest('.icon-btn');
+            btn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                window.location.href = 'wishlist.html';
+            }, 200);
+        }
+
+        // Account button click
+        function handleAccountClick(e) {
+            e.preventDefault();
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
+            if (isLoggedIn) {
+                window.location.href = 'account.html';
+            } else {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Cart button click
+        function goToCart() {
+            const btn = event.target.closest('.icon-btn');
+            btn.style.transform = 'scale(0.9)';
+            setTimeout(() => {
+                window.location.href = 'cart.html';
+            }, 200);
+        }
+    </script>
+</body>
+</html>

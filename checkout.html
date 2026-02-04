@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/responsive.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--text-medium);
+        }
+
+        .checkout-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+        }
+
+        .checkout-section {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-title {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-maroon);
+            box-shadow: 0 0 0 3px rgba(139, 21, 56, 0.1);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .payment-option {
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary-maroon);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary-maroon);
+            background: rgba(139, 21, 56, 0.05);
+        }
+
+        .payment-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .payment-icon {
+            font-size: 2rem;
+        }
+
+        .order-summary {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .summary-item-image {
+            width: 60px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .summary-item-details {
+            flex: 1;
+            margin-left: 1rem;
+        }
+
+        .summary-item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .summary-item-price {
+            color: var(--primary-maroon);
+            font-weight: 600;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.75rem;
+            color: var(--text-medium);
+        }
+
+        .summary-row.total {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            padding-top: 1rem;
+            border-top: 2px solid #e0e0e0;
+            margin-top: 1rem;
+        }
+
+        .place-order-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .place-order-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .place-order-btn:active::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            animation: ripple 0.6s ease;
+        }
+
+        @keyframes ripple {
+            0% {
+                width: 0;
+                height: 0;
+            }
+            100% {
+                width: 300px;
+                height: 300px;
+            }
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 968px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <a href="cart.html">Cart</a> <span>/</span> <span>Checkout</span>
+    </div>
+
+    <div class="checkout-container">
+        <div>
+            <div class="checkout-section">
+                <h2 class="section-title">Shipping Address</h2>
+                <form id="checkoutForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" maxlength="10" pattern="[0-9]{10}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Street Address</label>
+                        <textarea id="address" rows="3" required></textarea>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <input type="text" id="state" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pincode">Pincode</label>
+                            <input type="text" id="pincode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country</label>
+                            <select id="country" required>
+                                <option value="India">India</option>
+                                <option value="USA">USA</option>
+                                <option value="UK">UK</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="checkout-section" style="margin-top: 2rem;">
+                <h2 class="section-title">Payment Method</h2>
+                <div class="payment-methods">
+                    <div class="payment-option" onclick="selectPayment('upi')">
+                        <input type="radio" name="payment" id="upi" value="upi">
+                        <span class="payment-icon">📱</span>
+                        <div>
+                            <div style="font-weight: 600;">UPI</div>
+                            <div style="font-size: 0.875rem; color: var(--text-light);">Pay via UPI apps</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('card')">
+                        <input type="radio" name="payment" id="card" value="card">
+                        <span class="payment-icon">💳</span>
+                        <div>
+                            <div style="font-weight: 600;">Credit/Debit Card</div>
+                            <div style="font-size: 0.875rem; color: var(--text-light);">Visa, Mastercard, RuPay</div>
+                        </div>
+                    </div>
+                    <div class="payment-option" onclick="selectPayment('cod')">
+                        <input type="radio" name="payment" id="cod" value="cod" checked>
+                        <span class="payment-icon">💰</span>
+                        <div>
+                            <div style="font-weight: 600;">Cash on Delivery</div>
+                            <div style="font-size: 0.875rem; color: var(--text-light);">Pay when you receive</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h2 class="section-title">Order Summary</h2>
+            <div id="orderItems">
+                <!-- Items from cart will be injected here -->
+            </div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="subtotal">₹0</span>
+            </div>
+            <div class="summary-row">
+                <span>Shipping</span>
+                <span>₹99</span>
+            </div>
+            <div class="summary-row">
+                <span>Tax</span>
+                <span id="tax">₹0</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total</span>
+                <span id="total">₹0</span>
+            </div>
+            <button class="place-order-btn" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function selectPayment(method) {
+            document.querySelectorAll('.payment-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.currentTarget.classList.add('selected');
+            document.getElementById(method).checked = true;
+        }
+
+        // Cart helpers (shared structure with home & cart pages)
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            try {
+                return cart ? JSON.parse(cart) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function getProductImage(productName) {
+            const imageMap = {
+                'Designer Silk Saree': 'D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg',
+                'Embroidered Kurti': '64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp',
+                'Bridal Lehenga': 'AFFEA1B2-B1CA-4C74-9CA6-1C87D0186E27.avif',
+                'Designer Gown': 'EF9E3A48-CDAA-4922-B67D-0A80F3097FE6.jpeg',
+                'Casual Saree': '338C478E-ABED-47EC-9B0C-5C20E1B0CEA0.webp',
+                'Party Wear Kurti': 'E8CD3C84-96C1-43AD-B3E7-6686703DEBE7.jpeg',
+                'Designer Lehenga': '0B085768-4223-4C5B-93EB-89A368EDA3C1.jpeg',
+                'Evening Gown': 'C364A5D7-83AA-453B-A20B-E6393FF2565F.webp',
+                'Pakistani Salwar Kameez': 'C0464442-6943-4F6C-B5FB-6FA5060F36DB.webp',
+                'Wedding Lehenga': '7406512D-7E5D-4FAE-AEC4-4C1B75EE141F.jpeg',
+                'New Casual Saree': 'C9332EA9-5901-4F88-9354-8FFA40812181.webp',
+                'Designer Salwar Kameez': 'D3541698-BE6F-4F7F-B4BF-781E857FA99F.webp',
+                'Party Wear Saree': 'D1F77898-3292-4789-AAFE-C22BEC1BF761.webp',
+                'Casual Kurti': '49C1DCE6-BF43-4D21-85BD-58624CDE7A2C.webp',
+                'Designer Lehenga Choli': '0AE3873E-820A-4388-A1AC-8108DEE9A11E_1_201_a.jpeg',
+                'Anarkali Kurti': '8DC0DBA9-007B-4E8A-93A8-E2C525EC8F24.webp',
+                'Party Wear Salwar Kameez': 'AD1B9975-BB16-45EE-8397-2D59847C9C52.jpeg',
+                'Cocktail Gown': 'DCC68DB8-65C6-478D-8290-858AABC412D1.webp',
+                'Banarasi Silk Saree': '21FE3401-18B4-4FAF-BB06-A4C374DCBE51.webp',
+                'Printed Kurti': '12D819EB-A376-4227-8769-4DE3F803914C.webp',
+                'Georgette Saree': '5658A972-BE79-4735-B898-9557B4832293.webp',
+                 'Casual Salwar Kameez': '8C42C2E8-45FE-454D-AAF3-A33F1432C93C.jpeg',
+                 'Maxi Gown': 'DE465FA4-31D1-499D-985A-69CA318BB6C6.webp',
+                 'Reception Lehenga': '72B20215-A87C-45DA-8F6B-BA40043EE296.webp'
+            };
+            return imageMap[productName] || 'https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop';
+        }
+
+        function renderCheckoutSummary() {
+            const cart = getCart();
+            if (!cart || cart.length === 0) {
+                // No items – send user back to cart
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            const itemsContainer = document.getElementById('orderItems');
+            let subtotal = 0;
+
+            itemsContainer.innerHTML = cart.map(item => {
+                const lineTotal = item.price * item.quantity;
+                subtotal += lineTotal;
+                return `
+                    <div class="summary-item">
+                        <img src="${getProductImage(item.name)}" alt="${item.name}" class="summary-item-image">
+                        <div class="summary-item-details">
+                            <div class="summary-item-title">${item.name}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-light);">Qty: ${item.quantity}</div>
+                            <div class="summary-item-price">₹${lineTotal.toLocaleString()}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const shipping = 99;
+            const tax = Math.round(subtotal * 0.1);
+            const total = Math.round(subtotal + shipping + tax);
+
+            document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
+            document.getElementById('tax').textContent = `₹${tax.toLocaleString()}`;
+            document.getElementById('total').textContent = `₹${total.toLocaleString()}`;
+        }
+
+        function saveLastOrder(paymentMethod) {
+            const cart = getCart();
+            if (!cart || cart.length === 0) return;
+
+            let subtotal = 0;
+            cart.forEach(item => {
+                subtotal += item.price * item.quantity;
+            });
+
+            const shipping = 99;
+            const tax = Math.round(subtotal * 0.1);
+            const total = Math.round(subtotal + shipping + tax);
+
+            const now = new Date();
+            const orderNumber = `ORD-${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}-${String(now.getTime()).slice(-4)}`;
+            const orderDate = now.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+            const deliveryDateObj = new Date(now.getTime() + 5 * 24 * 60 * 60 * 1000);
+            const deliveryDate = deliveryDateObj.toLocaleDateString('en-IN', { year: 'numeric', month: 'long', day: 'numeric' });
+
+            const deliveryTimestamp = deliveryDateObj.getTime();
+
+            const orderData = {
+                orderNumber,
+                orderDate,
+                deliveryDate,
+                deliveryTimestamp,
+                paymentMethod,
+                subtotal,
+                shipping,
+                tax,
+                total,
+                items: cart,
+                status: 'pending',
+                createdAt: now.toISOString(),
+                expectedDeliveryDays: 3
+            };
+
+            // Save to lastOrder for confirmation page
+            localStorage.setItem('lastOrder', JSON.stringify(orderData));
+
+            // Save order to user's order history
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (currentUser) {
+                const users = JSON.parse(localStorage.getItem('luxeUsers')) || [];
+                const userIndex = users.findIndex(u => u.id === currentUser.id);
+
+                if (userIndex !== -1) {
+                    if (!users[userIndex].orders) {
+                        users[userIndex].orders = [];
+                    }
+                    users[userIndex].orders.push(orderData);
+                    localStorage.setItem('luxeUsers', JSON.stringify(users));
+
+                    // Update current user as well
+                    currentUser.orders = users[userIndex].orders;
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                }
+            }
+        }
+
+        function placeOrder() {
+            const form = document.getElementById('checkoutForm');
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+            // Snapshot current order so confirmation page shows the same products
+            saveLastOrder(paymentMethod);
+
+            const btn = document.querySelector('.place-order-btn');
+            btn.textContent = 'Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                if (paymentMethod === 'upi') {
+                    window.location.href = 'upi-payment.html';
+                } else if (paymentMethod === 'card') {
+                    window.location.href = 'card-payment.html';
+                } else {
+                    window.location.href = 'order-confirmation.html';
+                }
+            }, 2000);
+        }
+
+        // Initialize COD as selected
+        document.querySelector('#cod').closest('.payment-option').classList.add('selected');
+
+        // Render summary from cart on page load
+        renderCheckoutSummary();
+    </script>
+</body>
+</html>

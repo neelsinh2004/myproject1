@@ -1,0 +1,1786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/responsive.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--primary-maroon);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-badge.show {
+            display: flex;
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--text-medium);
+        }
+
+        .breadcrumb a:hover {
+            color: var(--primary-maroon);
+        }
+
+        /* Product Not Available */
+        .product-not-available {
+            max-width: 1400px;
+            margin: 3rem auto;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .not-available-content {
+            background: var(--bg-white);
+            padding: 4rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .not-available-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .not-available-content h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-maroon);
+        }
+
+        .not-available-content p {
+            color: var(--text-medium);
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        /* Availability Status */
+        .availability-status {
+            margin-bottom: 1.5rem;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .stock-badge.in-stock {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .stock-badge.out-of-stock {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        /* Product Detail */
+        .product-detail-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .product-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            background: var(--bg-white);
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        /* Image Gallery */
+        .image-gallery {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            width: 100%;
+            height: 750px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            background-color: #fafafa;
+            border-radius: 12px;
+            cursor: zoom-in;
+            transition: transform 0.1s ease-out;
+            display: block;
+            will-change: transform;
+        }
+
+        .image-gallery:hover .main-image {
+            cursor: zoom-out;
+        }
+
+        .thumbnail-slider {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            overflow-x: auto;
+            padding: 0.5rem 0;
+        }
+
+        .thumbnail {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .thumbnail:hover,
+        .thumbnail.active {
+            border-color: var(--primary-maroon);
+            transform: scale(1.1);
+        }
+
+        /* Product Info */
+        .product-info h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stars {
+            color: var(--accent-gold);
+            font-size: 1.2rem;
+        }
+
+        .rating-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .price-current {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-maroon);
+        }
+
+        .price-old {
+            font-size: 1.25rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        .discount-badge-large {
+            background: var(--primary-maroon);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-weight: 600;
+        }
+
+        .product-description {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            color: var(--text-medium);
+        }
+
+        .product-highlights {
+            margin-bottom: 2rem;
+        }
+
+        .product-highlights h3 {
+            font-family: var(--font-serif);
+            margin-bottom: 1rem;
+        }
+
+        .highlights-list {
+            list-style: none;
+        }
+
+        .highlights-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .highlights-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-maroon);
+            font-weight: bold;
+        }
+
+        /* Size Selector */
+        .size-selector {
+            margin-bottom: 2rem;
+        }
+
+        .size-selector h3 {
+            font-family: var(--font-serif);
+            margin-bottom: 1rem;
+        }
+
+        .size-options {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .size-btn {
+            padding: 0.75rem 1.5rem;
+            border: 2px solid #e0e0e0;
+            background: var(--bg-white);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .size-btn:hover {
+            border-color: var(--primary-maroon);
+        }
+
+        .size-btn.selected {
+            background: var(--primary-maroon);
+            color: white;
+            border-color: var(--primary-maroon);
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            color: white;
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--primary-maroon);
+            border: 2px solid var(--primary-maroon);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:active::after {
+            width: 300px;
+            height: 300px;
+        }
+
+        .wishlist-btn,
+        .compare-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            background: var(--bg-white);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .wishlist-btn:hover,
+        .compare-btn:hover {
+            border-color: var(--primary-maroon);
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        /* Related Products */
+        .related-products {
+            margin-top: 1rem;
+        }
+
+        .related-products h2 {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .related-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .product-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+
+        .product-info-small {
+            padding: 1.5rem;
+        }
+
+        .product-title-small {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price-small {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .price-current-small {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-maroon);
+        }
+
+        .price-old-small {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-decoration: line-through;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+            }
+
+            .main-image {
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="index.html#collections">Collections</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <a href="account.html" class="icon-btn" title="Account" aria-label="Account">
+                    <!-- User account SVG icon -->
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M12 12c2.7614 0 5-2.2386 5-5s-2.2386-5-5-5-5 2.2386-5 5 2.2386 5 5 5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M20 21c0-3.866-3.582-7-8-7s-8 3.134-8 7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </a>
+                <button class="icon-btn" onclick="window.location.href='wishlist.html'">❤️</button>
+                <button class="icon-btn" onclick="window.location.href='cart.html'">
+                    🛒
+                    <span class="cart-badge" id="cartBadge">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <a href="shop.html">Shop</a> <span>/</span> <span id="breadcrumbProduct">Product</span>
+    </div>
+
+    <!-- Product Not Available Message -->
+    <div class="product-not-available" id="productNotAvailable" style="display: none;">
+        <div class="not-available-content">
+            <div class="not-available-icon">⚠️</div>
+            <h2>Product Not Available</h2>
+            <p>Sorry, this product is currently out of stock. Please check back later or browse our other products.</p>
+            <a href="shop.html" class="btn btn-primary">Continue Shopping</a>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <div class="product-detail-container" id="productDetailContainer">
+        <div class="product-detail">
+            <!-- Image Gallery -->
+            <div class="image-gallery">
+                <img src="" alt="Product" class="main-image" id="mainImage">
+                <div class="thumbnail-slider" id="thumbnailSlider">
+                    <!-- Thumbnails will be dynamically generated -->
+                </div>
+            </div>
+
+            <!-- Product Info -->
+            <div class="product-info">
+                <h1 id="productTitle">Product Title</h1>
+                <div class="product-rating">
+                    <span class="stars" id="productStars">★★★★★</span>
+                    <span class="rating-text" id="productRating">(4.8) 124 Reviews</span>
+                </div>
+                <div class="product-price">
+                    <span class="price-current" id="productPriceCurrent">₹0</span>
+                    <span class="price-old" id="productPriceOld" style="display: none;">₹0</span>
+                    <span class="discount-badge-large" id="productDiscount" style="display: none;">-0%</span>
+                </div>
+                <div class="availability-status" id="availabilityStatus" style="display: none;">
+                    <span class="stock-badge in-stock">✓ In Stock</span>
+                    <span class="stock-badge out-of-stock" style="display: none;">✗ Out of Stock</span>
+                </div>
+                <p class="product-description" id="productDescription">
+                    Product description will be loaded here.
+                </p>
+                <div class="product-highlights">
+                    <h3>Key Features</h3>
+                    <ul class="highlights-list" id="productHighlights">
+                        <!-- Features will be dynamically generated -->
+                    </ul>
+                </div>
+                <div class="size-selector">
+                    <h3>Select Size</h3>
+                    <div class="size-options" id="sizeOptions">
+                        <!-- Size options will be dynamically generated -->
+                    </div>
+                </div>
+                <div class="action-buttons">
+                    <button class="btn btn-primary" id="addToCartBtn" onclick="addToCart()">Add to Cart</button>
+                    <button class="wishlist-btn" onclick="addToWishlist()" title="Add to Wishlist">❤️</button>
+                    <button class="compare-btn" onclick="addToCompare()" title="Add to Compare">🔄</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Products (dynamically rendered) -->
+        <div class="related-products">
+            <h2>You May Also Like</h2>
+            <div class="related-grid" id="relatedGrid">
+                <!-- related items rendered here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Comprehensive Product Database
+        const productsDatabase = [
+            { 
+                id: 1, 
+                title: "Designer Silk Saree", 
+                price: 4999, 
+                oldPrice: 7999, 
+                discount: 30, 
+                image: "D131916C-CA65-45CC-8F52-C4AC586F7304.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop"
+                ],
+                category: "saree", 
+                occasion: "designer",
+                available: true,
+                rating: 4.8,
+                reviews: 124,
+                description: "Experience timeless elegance with our premium designer silk saree. Crafted with meticulous attention to detail, this exquisite piece features intricate embroidery and luxurious fabric that drapes beautifully. Perfect for weddings, parties, and special occasions.",
+                features: [
+                    "100% Pure Silk Fabric",
+                    "Handcrafted Embroidery",
+                    "Premium Quality Zari Work",
+                    "Comfortable Draping",
+                    "Easy Maintenance",
+                    "Available in Multiple Colors"
+                ],
+                sizes: ["Any Size"]
+            },
+            { 
+                id: 2, 
+                title: "Embroidered Kurti", 
+                price: 1999, 
+                oldPrice: 2699, 
+                discount: 25, 
+                image: "64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp",
+                images: [
+                    "64995AB4-3AB8-4F75-AEBF-54CB967ED9F8.webp",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop"
+                ],
+                category: "kurti", 
+                occasion: "casual",
+                available: true,
+                rating: 4.6,
+                reviews: 89,
+                description: "Stylish and comfortable embroidered kurti perfect for everyday wear. Features beautiful thread work and modern design that complements any occasion.",
+                features: [
+                    "Cotton Blend Fabric",
+                    "Hand Embroidered",
+                    "Comfortable Fit",
+                    "Easy Wash",
+                    "Multiple Color Options"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 3, 
+                title: "Bridal Lehenga", 
+                price: 24999, 
+                oldPrice: 39999, 
+                discount: 40, 
+                image: "AFFEA1B2-B1CA-4C74-9CA6-1C87D0186E27.avif",
+                images: [
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop"
+                ],
+                category: "lehenga", 
+                occasion: "wedding",
+                available: true,
+                rating: 4.9,
+                reviews: 256,
+                description: "Magnificent bridal lehenga with intricate zari work and sequin embellishments. A perfect choice for your special day, designed to make you feel like royalty.",
+                features: [
+                    "Premium Silk Fabric",
+                    "Heavy Zari Work",
+                    "Sequin Embellishments",
+                    "Matching Dupatta",
+                    "Custom Sizing Available"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 4, 
+                title: "Designer Gown", 
+                price: 5999, 
+                oldPrice: 7499, 
+                discount: 20, 
+                image: "EF9E3A48-CDAA-4922-B67D-0A80F3097FE6.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop"
+                ],
+                category: "gown", 
+                occasion: "party",
+                available: false,
+                rating: 4.7,
+                reviews: 156,
+                description: "Elegant designer gown perfect for evening parties and special events. Features flowing fabric and sophisticated design.",
+                features: [
+                    "Premium Fabric",
+                    "Elegant Design",
+                    "Perfect Fit",
+                    "Party Ready",
+                    "Dry Clean Only"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 5, 
+                title: "Casual Saree", 
+                price: 2499, 
+                oldPrice: 3999, 
+                discount: 35, 
+                image: "338C478E-ABED-47EC-9B0C-5C20E1B0CEA0.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop"
+                ],
+                category: "saree", 
+                occasion: "casual",
+                available: true,
+                rating: 4.5,
+                reviews: 203,
+                description: "Comfortable and stylish casual saree perfect for daily wear. Easy to drape and maintain, ideal for office and casual outings.",
+                features: [
+                    "Lightweight Fabric",
+                    "Easy to Drape",
+                    "Comfortable Wear",
+                    "Machine Washable",
+                    "Multiple Colors"
+                ],
+                sizes: ["Any Size"]
+            },
+            { 
+                id: 6, 
+                title: "Party Wear Kurti", 
+                price: 2999, 
+                oldPrice: 4299, 
+                discount: 30, 
+                image: "E8CD3C84-96C1-43AD-B3E7-6686703DEBE7.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop"
+                ],
+                category: "kurti", 
+                occasion: "party",
+                available: true,
+                rating: 4.6,
+                reviews: 178,
+                description: "Glamorous party wear kurti with sequin work and elegant design. Perfect for parties, celebrations, and special occasions.",
+                features: [
+                    "Sequin Embellishments",
+                    "Party Ready Design",
+                    "Comfortable Fit",
+                    "Stylish Look",
+                    "Easy Maintenance"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 7, 
+                title: "Designer Lehenga", 
+                price: 19999, 
+                oldPrice: 26999, 
+                discount: 25, 
+                image: "0B085768-4223-4C5B-93EB-89A368EDA3C1.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop"
+                ],
+                category: "lehenga", 
+                occasion: "designer",
+                available: true,
+                rating: 4.8,
+                reviews: 145,
+                description: "Exquisite designer lehenga with intricate workmanship and premium quality. A statement piece for special occasions.",
+                features: [
+                    "Designer Collection",
+                    "Premium Quality",
+                    "Intricate Work",
+                    "Matching Accessories",
+                    "Luxury Feel"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 8, 
+                title: "Evening Gown", 
+                price: 6999, 
+                oldPrice: 8799, 
+                discount: 20, 
+                image: "C364A5D7-83AA-453B-A20B-E6393FF2565F.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop"
+                ],
+                category: "gown", 
+                occasion: "party",
+                available: true,
+                rating: 4.7,
+                reviews: 98,
+                description: "Stunning evening gown with elegant silhouette and premium fabric. Perfect for formal events and special occasions.",
+                features: [
+                    "Elegant Design",
+                    "Premium Fabric",
+                    "Perfect Fit",
+                    "Formal Occasions",
+                    "Dry Clean Only"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 9, 
+                title: "Pakistani Salwar Kameez", 
+                price: 3499, 
+                oldPrice: 4999, 
+                discount: 30, 
+                image: "C0464442-6943-4F6C-B5FB-6FA5060F36DB.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop"
+                ],
+                category: "salwar", 
+                occasion: "casual",
+                available: true,
+                rating: 4.6,
+                reviews: 167,
+                description: "Traditional Pakistani style salwar kameez with modern twist. Comfortable and stylish for everyday wear.",
+                features: [
+                    "Traditional Design",
+                    "Comfortable Fit",
+                    "Premium Fabric",
+                    "Easy Maintenance",
+                    "Multiple Colors"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 10, 
+                title: "Wedding Lehenga", 
+                price: 29999, 
+                oldPrice: 44999, 
+                discount: 33, 
+                image: "7406512D-7E5D-4FAE-AEC4-4C1B75EE141F.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop"
+                ],
+                category: "lehenga", 
+                occasion: "wedding",
+                available: true,
+                rating: 4.9,
+                reviews: 312,
+                description: "Luxurious wedding lehenga with heavy embroidery and premium quality. Designed to make you shine on your special day.",
+                features: [
+                    "Heavy Embroidery",
+                    "Premium Quality",
+                    "Bridal Collection",
+                    "Matching Dupatta",
+                    "Custom Fitting"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 11, 
+                title: "New Casual Saree", 
+                price: 1799, 
+                oldPrice: 2999, 
+                discount: 40, 
+                image: "C9332EA9-5901-4F88-9354-8FFA40812181.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop"
+                ],
+                category: "saree", 
+                occasion: "casual",
+                available: true,
+                rating: 4.4,
+                reviews: 234,
+                description: "Fresh new casual saree design perfect for modern women. Lightweight and easy to wear for daily occasions.",
+                features: [
+                    "New Design",
+                    "Lightweight",
+                    "Easy Draping",
+                    "Comfortable",
+                    "Affordable"
+                ],
+                sizes: ["Any Size"]
+            },
+            { 
+                id: 12, 
+                title: "Designer Salwar Kameez", 
+                price: 4499, 
+                oldPrice: 5999, 
+                discount: 25, 
+                image: "D3541698-BE6F-4F7F-B4BF-781E857FA99F.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop"
+                ],
+                category: "salwar", 
+                occasion: "designer",
+                available: true,
+                rating: 4.7,
+                reviews: 189,
+                description: "Elegant designer salwar kameez with intricate work and premium fabric. Perfect for parties and special occasions.",
+                features: [
+                    "Designer Work",
+                    "Premium Fabric",
+                    "Elegant Design",
+                    "Perfect Fit",
+                    "Party Ready"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 13, 
+                title: "Party Wear Saree", 
+                price: 3499, 
+                oldPrice: 5399, 
+                discount: 35, 
+                image: "D1F77898-3292-4789-AAFE-C22BEC1BF761.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop"
+                ],
+                category: "saree", 
+                occasion: "party",
+                available: true,
+                rating: 4.6,
+                reviews: 201,
+                description: "Glamorous party wear saree with sequin work and elegant design. Perfect for parties and celebrations.",
+                features: [
+                    "Sequin Work",
+                    "Party Design",
+                    "Elegant Look",
+                    "Premium Quality",
+                    "Multiple Colors"
+                ],
+                sizes: ["Any Size"]
+            },
+            { 
+                id: 14, 
+                title: "Casual Kurti", 
+                price: 1499, 
+                oldPrice: 2199, 
+                discount: 32, 
+                image: "49C1DCE6-BF43-4D21-85BD-58624CDE7A2C.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop"
+                ],
+                category: "kurti", 
+                occasion: "casual",
+                available: true,
+                rating: 4.5,
+                reviews: 267,
+                description: "Comfortable casual kurti perfect for everyday wear. Simple yet stylish design for daily use.",
+                features: [
+                    "Comfortable Fit",
+                    "Daily Wear",
+                    "Easy Maintenance",
+                    "Affordable",
+                    "Multiple Colors"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 15, 
+                title: "Designer Lehenga Choli", 
+                price: 22999, 
+                oldPrice: 35999, 
+                discount: 36, 
+                image: "0AE3873E-820A-4388-A1AC-8108DEE9A11E_1_201_a.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop"
+                ],
+                category: "lehenga", 
+                occasion: "designer",
+                available: true,
+                rating: 4.8,
+                reviews: 198,
+                description: "Stunning designer lehenga choli set with heavy work and premium quality. A perfect choice for special occasions.",
+                features: [
+                    "Heavy Work",
+                    "Designer Collection",
+                    "Premium Quality",
+                    "Matching Set",
+                    "Luxury Feel"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 16, 
+                title: "Cocktail Gown", 
+                price: 7999, 
+                oldPrice: 9999, 
+                discount: 20, 
+                image: "DCC68DB8-65C6-478D-8290-858AABC412D1.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop"
+                ],
+                category: "gown", 
+                occasion: "party",
+                available: true,
+                rating: 4.7,
+                reviews: 112,
+                description: "Elegant cocktail gown perfect for evening parties and formal events. Features sophisticated design and premium fabric.",
+                features: [
+                    "Cocktail Design",
+                    "Evening Wear",
+                    "Premium Fabric",
+                    "Elegant Look",
+                    "Formal Occasions"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 17, 
+                title: "Party Wear Salwar Kameez", 
+                price: 4999, 
+                oldPrice: 6399, 
+                discount: 22, 
+                image: "AD1B9975-BB16-45EE-8397-2D59847C9C52.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop"
+                ],
+                category: "salwar", 
+                occasion: "party",
+                available: true,
+                rating: 4.6,
+                reviews: 156,
+                description: "Stylish party wear salwar kameez with elegant design and premium quality. Perfect for celebrations and parties.",
+                features: [
+                    "Party Design",
+                    "Elegant Look",
+                    "Premium Quality",
+                    "Comfortable Fit",
+                    "Celebration Ready"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 18, 
+                title: "Banarasi Silk Saree", 
+                price: 8999, 
+                oldPrice: 12999, 
+                discount: 31, 
+                image: "21FE3401-18B4-4FAF-BB06-A4C374DCBE51.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop"
+                ],
+                category: "saree", 
+                occasion: "designer",
+                available: true,
+                rating: 4.9,
+                reviews: 278,
+                description: "Authentic Banarasi silk saree with traditional zari work. A timeless piece that represents Indian heritage and craftsmanship.",
+                features: [
+                    "Authentic Banarasi",
+                    "Traditional Zari Work",
+                    "Premium Silk",
+                    "Heritage Design",
+                    "Timeless Elegance"
+                ],
+                sizes: ["Any Size"]
+            },
+            { 
+                id: 19, 
+                title: "Anarkali Kurti", 
+                price: 2499, 
+                oldPrice: 3499, 
+                discount: 29, 
+                image: "8DC0DBA9-007B-4E8A-93A8-E2C525EC8F24.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop"
+                ],
+                category: "kurti", 
+                occasion: "party",
+                available: true,
+                rating: 4.7,
+                reviews: 223,
+                description: "Beautiful Anarkali style kurti with flowing design and elegant look. Perfect for parties and special occasions.",
+                features: [
+                    "Anarkali Style",
+                    "Flowing Design",
+                    "Elegant Look",
+                    "Party Ready",
+                    "Comfortable Fit"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 20, 
+                title: "Reception Lehenga", 
+                price: 34999, 
+                oldPrice: 54999, 
+                discount: 36, 
+                image: "72B20215-A87C-45DA-8F6B-BA40043EE296.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=400&h=400&fit=crop"
+                ],
+                category: "lehenga", 
+                occasion: "wedding",
+                available: true,
+                rating: 4.9,
+                reviews: 189,
+                description: "Luxurious reception lehenga with heavy embroidery and premium quality. Designed for your special reception event.",
+                features: [
+                    "Reception Design",
+                    "Heavy Embroidery",
+                    "Premium Quality",
+                    "Luxury Collection",
+                    "Custom Fitting"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 21, 
+                title: "Maxi Gown", 
+                price: 4999, 
+                oldPrice: 6999, 
+                discount: 29, 
+                image: "DE465FA4-31D1-499D-985A-69CA318BB6C6.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=400&fit=crop"
+                ],
+                category: "gown", 
+                occasion: "party",
+                available: true,
+                rating: 4.6,
+                reviews: 145,
+                description: "Elegant maxi gown with flowing design perfect for parties and special events. Features comfortable fit and stylish look.",
+                features: [
+                    "Maxi Length",
+                    "Flowing Design",
+                    "Comfortable Fit",
+                    "Party Ready",
+                    "Elegant Style"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 22, 
+                title: "Casual Salwar Kameez", 
+                price: 2299, 
+                oldPrice: 3299, 
+                discount: 30, 
+                image: "8C42C2E8-45FE-454D-AAF3-A33F1432C93C.jpeg",
+                images: [
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1529903384028-929ae5dccdf1?w=400&h=400&fit=crop"
+                ],
+                category: "salwar", 
+                occasion: "casual",
+                available: true,
+                rating: 4.5,
+                reviews: 198,
+                description: "Comfortable casual salwar kameez perfect for everyday wear. Simple design with comfortable fit for daily use.",
+                features: [
+                    "Casual Design",
+                    "Comfortable Fit",
+                    "Daily Wear",
+                    "Easy Maintenance",
+                    "Affordable"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            },
+            { 
+                id: 23, 
+                title: "Georgette Saree", 
+                price: 2999, 
+                oldPrice: 4499, 
+                discount: 33, 
+                image: "5658A972-BE79-4735-B898-9557B4832293.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1583292650898-7d22cd27ca6f?w=400&h=400&fit=crop"
+                ],
+                category: "saree", 
+                occasion: "casual",
+                available: true,
+                rating: 4.5,
+                reviews: 189,
+                description: "Elegant georgette saree with smooth texture and beautiful drape. Perfect for parties and special occasions.",
+                features: [
+                    "Georgette Fabric",
+                    "Smooth Texture",
+                    "Beautiful Drape",
+                    "Party Ready",
+                    "Easy Maintenance"
+                ],
+                sizes: ["Any Size"]
+            },
+            { 
+                id: 24, 
+                title: "Printed Kurti", 
+                price: 1299, 
+                oldPrice: 1999, 
+                discount: 35, 
+                image: "12D819EB-A376-4227-8769-4DE3F803914C.webp",
+                images: [
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=400&h=400&fit=crop",
+                    "https://images.unsplash.com/photo-1594633313593-bab3825d0caf?w=400&h=400&fit=crop"
+                ],
+                category: "kurti", 
+                occasion: "casual",
+                available: true,
+                rating: 4.4,
+                reviews: 312,
+                description: "Stylish printed kurti with beautiful patterns and comfortable fit. Perfect for casual wear and daily use.",
+                features: [
+                    "Beautiful Prints",
+                    "Comfortable Fit",
+                    "Casual Wear",
+                    "Affordable",
+                    "Multiple Designs"
+                ],
+                sizes: ["S", "M", "L", "XL"]
+            }
+        ];
+
+        // Get product ID from URL
+        function getProductIdFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return parseInt(urlParams.get('id'));
+        }
+
+        // Find product by ID
+        function findProductById(id) {
+            return productsDatabase.find(product => product.id === id);
+        }
+
+        // Load product details
+        function loadProductDetails() {
+            const productId = getProductIdFromURL();
+            const product = findProductById(productId);
+
+            if (!product) {
+                // Product not found
+                document.getElementById('productDetailContainer').style.display = 'none';
+                document.getElementById('productNotAvailable').style.display = 'block';
+                document.getElementById('breadcrumbProduct').textContent = 'Product Not Found';
+                return;
+            }
+
+            if (!product.available) {
+                // Product not available
+                document.getElementById('productDetailContainer').style.display = 'none';
+                document.getElementById('productNotAvailable').style.display = 'block';
+                document.getElementById('breadcrumbProduct').textContent = product.title;
+                return;
+            }
+
+            // Product is available - display details
+            document.getElementById('productNotAvailable').style.display = 'none';
+            document.getElementById('productDetailContainer').style.display = 'block';
+
+            // Update breadcrumb
+            document.getElementById('breadcrumbProduct').textContent = product.title;
+
+            // Update product title
+            document.getElementById('productTitle').textContent = product.title;
+
+            // Update rating
+            const stars = '★'.repeat(Math.floor(product.rating)) + '☆'.repeat(5 - Math.floor(product.rating));
+            document.getElementById('productStars').textContent = stars;
+            document.getElementById('productRating').textContent = `(${product.rating}) ${product.reviews} Reviews`;
+
+            // Update price
+            document.getElementById('productPriceCurrent').textContent = `₹${product.price.toLocaleString()}`;
+            if (product.oldPrice) {
+                document.getElementById('productPriceOld').textContent = `₹${product.oldPrice.toLocaleString()}`;
+                document.getElementById('productPriceOld').style.display = 'inline';
+                document.getElementById('productDiscount').textContent = `-${product.discount}%`;
+                document.getElementById('productDiscount').style.display = 'inline-block';
+            } else {
+                document.getElementById('productPriceOld').style.display = 'none';
+                document.getElementById('productDiscount').style.display = 'none';
+            }
+
+            // Update availability status
+            const availabilityStatus = document.getElementById('availabilityStatus');
+            if (product.available) {
+                availabilityStatus.style.display = 'block';
+                availabilityStatus.querySelector('.in-stock').style.display = 'inline-block';
+                availabilityStatus.querySelector('.out-of-stock').style.display = 'none';
+            } else {
+                availabilityStatus.style.display = 'block';
+                availabilityStatus.querySelector('.in-stock').style.display = 'none';
+                availabilityStatus.querySelector('.out-of-stock').style.display = 'inline-block';
+            }
+
+            // Update description
+            document.getElementById('productDescription').textContent = product.description;
+
+            // Update features
+            const featuresList = document.getElementById('productHighlights');
+            featuresList.innerHTML = product.features.map(feature => `<li>${feature}</li>`).join('');
+
+            // Update images
+            const mainImage = document.getElementById('mainImage');
+            // Primary src: product.image (may be local file); fallback to product.images[0] if it fails to load
+            mainImage.src = product.image || (product.images && product.images[0]) || '';
+            mainImage.alt = product.title;
+            mainImage.onerror = function() {
+                // Try first image from images array, then a generic placeholder
+                if (product.images && product.images.length > 0 && mainImage.src !== product.images[0]) {
+                    mainImage.src = product.images[0];
+                } else {
+                    mainImage.src = 'https://via.placeholder.com/800x800?text=Image+Unavailable';
+                }
+            };
+
+            const thumbnailSlider = document.getElementById('thumbnailSlider');
+            thumbnailSlider.innerHTML = product.images.map((img, index) => 
+                `<img src="${img}" alt="Thumbnail ${index + 1}" class="thumbnail ${index === 0 ? 'active' : ''}" onclick="changeImage(this)">`
+            ).join('');
+
+            // Update sizes
+            const sizeOptions = document.getElementById('sizeOptions');
+            sizeOptions.innerHTML = product.sizes.map((size, index) => 
+                `<button class="size-btn ${index === 0 ? 'selected' : ''}" data-size="${size}" onclick="selectSize(this)">${size}</button>`
+            ).join('');
+            // track initial selected size
+            window.currentSelectedSize = product.sizes[0] || null;
+
+            // Store current product for cart
+            window.currentProduct = product;
+            
+            // Re-initialize zoom after product images are loaded
+            setTimeout(initImageZoom, 100);
+
+            // Render related products (4 random, excluding current)
+            renderRelatedProducts(product.id);
+        }
+
+        // Render 4 random products excluding the current product
+        function renderRelatedProducts(currentProductId) {
+            const container = document.getElementById('relatedGrid');
+            if (!container) return;
+
+            // Filter out the current product
+            const choices = productsDatabase.filter(p => p.id !== currentProductId);
+
+            // Shuffle choices using Fisher-Yates
+            for (let i = choices.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [choices[i], choices[j]] = [choices[j], choices[i]];
+            }
+
+            const picks = choices.slice(0, 4);
+
+            container.innerHTML = picks.map(p => {
+                const img = p.image || (p.images && p.images[0]) || '';
+                const url = `product-detail.html?id=${p.id}`;
+                return `
+                    <div class="product-card" onclick="window.location.href='${url}'">
+                        <img src="${img}" alt="${p.title}" class="product-image">
+                        <div class="product-info-small">
+                            <h3 class="product-title-small">${p.title}</h3>
+                            <div class="product-price-small">
+                                <span class="price-current-small">₹${p.price.toLocaleString()}</span>
+                                ${p.oldPrice ? `<span class="price-old-small">₹${p.oldPrice.toLocaleString()}</span>` : ''}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Image gallery functionality
+        function changeImage(thumbnail) {
+            const mainImage = document.getElementById('mainImage');
+            mainImage.src = thumbnail.src.replace('w=400', 'w=800');
+            
+            // Update active thumbnail
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            thumbnail.classList.add('active');
+        }
+
+        // Size selector
+        function selectSize(btn) {
+            document.querySelectorAll('.size-btn').forEach(b => {
+                b.classList.remove('selected');
+            });
+            btn.classList.add('selected');
+                    // store the selected size (trim whitespace)
+                    try {
+                        window.currentSelectedSize = (btn.getAttribute('data-size') || btn.textContent || '').trim();
+                    } catch (e) {
+                        window.currentSelectedSize = (btn.textContent || '').trim();
+                    }
+        }
+
+        // Cart Management System
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            return cart ? JSON.parse(cart) : [];
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const cart = getCart();
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+                if (totalItems > 0) {
+                    badge.textContent = totalItems;
+                    badge.classList.add('show');
+                } else {
+                    badge.classList.remove('show');
+                }
+            }
+        }
+
+        // Add to cart with animation
+        function addToCart() {
+            if (!window.currentProduct || !window.currentProduct.available) {
+                alert('This product is not available.');
+                return;
+            }
+
+            // prefer explicit add-to-cart button element instead of relying on global event
+            const btn = document.getElementById('addToCartBtn') || document.querySelector('.btn-primary');
+            const product = window.currentProduct;
+            // Prefer the tracked currentSelectedSize (set by selectSize). Fallback to the selected DOM button or product default.
+            const selectedSize = (window.currentSelectedSize && String(window.currentSelectedSize).trim())
+                || document.querySelector('.size-btn.selected')?.textContent?.trim()
+                || (product.sizes && product.sizes[0])
+                || '';
+            
+            const cart = getCart();
+            const cartItemId = `${product.id}-${selectedSize}`;
+            
+            const existingItem = cart.find(item => item.id === cartItemId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({
+                    id: cartItemId,
+                    productId: product.id,
+                    name: product.title,
+                    price: product.price,
+                    image: product.image,
+                    size: selectedSize,
+                    quantity: 1
+                });
+            }
+            
+            saveCart(cart);
+            
+            // Visual feedback
+            btn.textContent = 'Added! ✓';
+            btn.style.background = 'green';
+            
+            setTimeout(() => {
+                btn.textContent = 'Add to Cart';
+                btn.style.background = '';
+            }, 2000);
+            
+            // Animate badge
+            const badge = document.getElementById('cartBadge');
+            if (badge) {
+                badge.style.transform = 'scale(1.5)';
+                setTimeout(() => {
+                    badge.style.transform = 'scale(1)';
+                }, 300);
+            }
+        }
+
+        // Initialize cart badge on page load
+        updateCartBadge();
+
+        // Load product details on page load
+        document.addEventListener('DOMContentLoaded', loadProductDetails);
+
+        function addToWishlist() {
+            const btn = event.target.closest('.wishlist-btn');
+            const productId = getProductIdFromURL();
+            if (!productId) {
+                alert('Unable to add to wishlist: product not identified.');
+                return;
+            }
+
+            // Read existing wishlist, append if not present
+            let ids = [];
+            try {
+                const raw = localStorage.getItem('wishlist');
+                ids = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(ids)) ids = [];
+            } catch (e) {
+                ids = [];
+            }
+
+            if (!ids.includes(productId)) ids.push(productId);
+
+            try {
+                localStorage.setItem('wishlist', JSON.stringify(ids));
+            } catch (e) {
+                console.error('Could not save wishlist', e);
+            }
+
+            if (btn) {
+                btn.style.background = 'var(--primary-maroon)';
+                btn.style.color = 'white';
+                setTimeout(() => {
+                    btn.style.background = '';
+                    btn.style.color = '';
+                }, 1000);
+            }
+
+            alert('Added to wishlist!');
+        }
+
+        function addToCompare() {
+            const productId = getProductIdFromURL();
+            const product = findProductById(productId);
+            if (!product) return;
+
+            const compareItem = {
+                id: product.id,
+                title: product.title,
+                price: product.price,
+                oldPrice: product.oldPrice,
+                discount: product.discount,
+                category: product.category,
+                occasion: product.occasion,
+                rating: product.rating,
+                reviews: product.reviews,
+                image: product.image
+            };
+
+            const raw = localStorage.getItem('compare');
+            let list = [];
+            try {
+                list = raw ? JSON.parse(raw) : [];
+                if (!Array.isArray(list)) list = [];
+            } catch {
+                list = [];
+            }
+
+            if (!list.some(p => p.id === compareItem.id)) {
+                list.push(compareItem);
+            }
+
+            if (list.length > 4) list = list.slice(list.length - 4);
+            localStorage.setItem('compare', JSON.stringify(list));
+
+            window.location.href = 'compare.html';
+        }
+
+        // Image zoom on hover - Fixed version with smooth zoom
+        function initImageZoom() {
+            const mainImage = document.getElementById('mainImage');
+            const imageGallery = document.querySelector('.image-gallery');
+            
+            if (!mainImage || !imageGallery) return;
+            
+            let isHovering = false;
+            const zoomLevel = 2.5;
+            
+            imageGallery.addEventListener('mouseenter', function() {
+                isHovering = true;
+                mainImage.style.cursor = 'zoom-out';
+            });
+            
+            imageGallery.addEventListener('mouseleave', function() {
+                isHovering = false;
+                mainImage.style.transform = 'scale(1)';
+                mainImage.style.transformOrigin = 'center center';
+                mainImage.style.cursor = 'zoom-in';
+            });
+            
+            imageGallery.addEventListener('mousemove', function(e) {
+                if (!isHovering) return;
+                
+                const rect = imageGallery.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculate percentage position within the gallery container
+                const xPercent = (x / rect.width) * 100;
+                const yPercent = (y / rect.height) * 100;
+                
+                // Clamp values to prevent zoom from going outside bounds
+                const clampedX = Math.max(0, Math.min(100, xPercent));
+                const clampedY = Math.max(0, Math.min(100, yPercent));
+                
+                // Set transform origin to mouse position and apply zoom
+                mainImage.style.transformOrigin = `${clampedX}% ${clampedY}%`;
+                mainImage.style.transform = `scale(${zoomLevel})`;
+            });
+        }
+
+        // Initialize zoom when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            // Wait a bit for product details to load, then initialize zoom
+            setTimeout(initImageZoom, 200);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compare Products - Luxe Fashion</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-maroon: #8B1538;
+            --primary-blue: #1a237e;
+            --primary-black: #0a0a0a;
+            --secondary-beige: #f5f1e8;
+            --accent-gold: #d4af37;
+            --text-dark: #1a1a1a;
+            --text-medium: #4a4a4a;
+            --text-light: #8a8a8a;
+            --bg-white: #ffffff;
+            --bg-light: #fafafa;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+            --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        body {
+            font-family: var(--font-sans);
+            color: var(--text-dark);
+            background: var(--bg-light);
+        }
+
+        header {
+            background: var(--bg-white);
+            box-shadow: var(--shadow-md);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--primary-maroon);
+        }
+
+        .breadcrumb {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        .breadcrumb a {
+            color: var(--text-medium);
+        }
+
+        .compare-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        .compare-header {
+            margin-bottom: 2rem;
+        }
+
+        .compare-header h1 {
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+        }
+
+        .compare-table {
+            background: var(--bg-white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            background: linear-gradient(135deg, var(--primary-maroon), var(--primary-blue));
+            color: white;
+        }
+
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            font-weight: 600;
+            font-family: var(--font-serif);
+        }
+
+        tbody tr:hover {
+            background: var(--bg-light);
+        }
+
+        .product-cell {
+            text-align: center;
+            vertical-align: top;
+        }
+
+        .product-image {
+            width: 150px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin: 0 auto 1rem;
+        }
+
+        .product-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary-maroon);
+            margin-bottom: 1rem;
+        }
+
+        .product-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-maroon);
+            color: var(--primary-maroon);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-maroon);
+            color: white;
+        }
+
+        .remove-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-light);
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .remove-btn:hover {
+            color: var(--primary-maroon);
+        }
+
+        .feature-cell {
+            color: var(--text-medium);
+        }
+
+        .feature-cell.highlight {
+            background: rgba(139, 21, 56, 0.1);
+            font-weight: 600;
+            color: var(--primary-maroon);
+        }
+
+        .empty-compare {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-white);
+            border-radius: 12px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .empty-compare-icon {
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-compare h2 {
+            font-family: var(--font-serif);
+            margin-bottom: 1rem;
+        }
+
+        .continue-shopping {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary-maroon);
+            color: white;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .continue-shopping:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        footer {
+            background: var(--primary-black);
+            color: white;
+            padding: 3rem 2rem 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+            font-family: var(--font-serif);
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.7);
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: var(--accent-gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .compare-table {
+                font-size: 0.875rem;
+            }
+
+            .product-image {
+                width: 100px;
+                height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">Luxe Fashion</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="index.html#collections">Collections</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="breadcrumb">
+        <a href="index.html">Home</a> <span>/</span> <span>Compare Products</span>
+    </div>
+
+    <div class="compare-container">
+        <div class="compare-header">
+            <h1>Compare Products</h1>
+            <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                <button class="btn btn-secondary" onclick="clearCompare()">Clear Compare</button>
+                <a href="shop.html" class="btn btn-primary" style="text-align:center;">Add More Products</a>
+            </div>
+        </div>
+
+        <div class="compare-table" id="compareTable">
+            <table id="compareTableEl">
+                <!-- Compare table will be built dynamically -->
+            </table>
+        </div>
+
+        <div class="empty-compare hidden" id="emptyCompare">
+            <div class="empty-compare-icon">🔄</div>
+            <h2>No products to compare</h2>
+            <p>Add products to compare their features side by side.</p>
+            <a href="shop.html" class="continue-shopping">Continue Shopping</a>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>About Us</h4>
+                <p>Premium Indian ethnic and modern wear for the contemporary woman.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="sitemap.html">Sitemap</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Policies</h4>
+                <ul>
+                    <li><a href="privacy.html">Privacy Policy</a></li>
+                    <li><a href="terms.html">Terms & Conditions</a></li>
+                    <li><a href="shipping.html">Shipping Policy</a></li>
+                    <li><a href="return.html">Return Policy</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Connect</h4>
+                <p>Email: info@luxefashion.com</p>
+                <p>Phone: +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Luxe Fashion. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        function getCompare() {
+            const raw = localStorage.getItem('compare');
+            try {
+                const parsed = raw ? JSON.parse(raw) : [];
+                return Array.isArray(parsed) ? parsed : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveCompare(list) {
+            localStorage.setItem('compare', JSON.stringify(list));
+        }
+
+        function clearCompare() {
+            saveCompare([]);
+            renderCompare();
+        }
+
+        function removeProductById(id) {
+            const list = getCompare().filter(p => p.id !== id);
+            saveCompare(list);
+            renderCompare();
+        }
+
+        // Cart integration (same cart schema used elsewhere)
+        function getCart() {
+            const cart = localStorage.getItem('cart');
+            try {
+                return cart ? JSON.parse(cart) : [];
+            } catch {
+                return [];
+            }
+        }
+
+        function saveCart(cart) {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function addToCartFromCompareId(productId) {
+            const compare = getCompare();
+            const product = compare.find(p => p.id === productId);
+            if (!product) return;
+
+            const cart = getCart();
+            const existing = cart.find(i => i.name === product.title);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({
+                    id: Date.now(),
+                    name: product.title,
+                    price: product.price || 0,
+                    quantity: 1
+                });
+            }
+            saveCart(cart);
+            window.location.href = 'cart.html';
+        }
+
+        function valueOrDash(v) {
+            if (v === undefined || v === null || v === '') return '—';
+            return String(v);
+        }
+
+        function formatCurrency(v) {
+            const n = Number(v);
+            if (!Number.isFinite(n) || n <= 0) return '—';
+            return `₹${n.toLocaleString()}`;
+        }
+
+        function shouldHighlight(values) {
+            const cleaned = values.map(v => (v === undefined || v === null ? '' : String(v))).map(v => v.trim());
+            const nonEmpty = cleaned.filter(v => v !== '');
+            if (nonEmpty.length <= 1) return false;
+            return new Set(nonEmpty).size > 1;
+        }
+
+        function renderCompare() {
+            const compare = getCompare();
+            const compareTableWrapper = document.getElementById('compareTable');
+            const empty = document.getElementById('emptyCompare');
+            const table = document.getElementById('compareTableEl');
+
+            if (!compare.length) {
+                compareTableWrapper.classList.add('hidden');
+                empty.classList.remove('hidden');
+                table.innerHTML = '';
+                return;
+            }
+
+            compareTableWrapper.classList.remove('hidden');
+            empty.classList.add('hidden');
+
+            const featureRows = [
+                { label: 'Price', key: 'price', format: formatCurrency },
+                { label: 'Old Price', key: 'oldPrice', format: formatCurrency },
+                { label: 'Discount', key: 'discount', format: (v) => (v ? `${v}%` : '—') },
+                { label: 'Category', key: 'category', format: valueOrDash },
+                { label: 'Occasion', key: 'occasion', format: valueOrDash },
+                { label: 'Rating', key: 'rating', format: (v) => (v ? `${v} ⭐` : '—') },
+                { label: 'Reviews', key: 'reviews', format: (v) => (v ? valueOrDash(v) : '—') }
+            ];
+
+            // Build header
+            const thead = document.createElement('thead');
+            const headerRow = document.createElement('tr');
+
+            const featureTh = document.createElement('th');
+            featureTh.textContent = 'Features';
+            headerRow.appendChild(featureTh);
+
+            compare.forEach(product => {
+                const th = document.createElement('th');
+                th.className = 'product-cell';
+                th.innerHTML = `
+                    <button class="remove-btn" title="Remove" onclick="removeProductById(${product.id})">✕</button>
+                    <img src="${product.image || ''}" alt="${product.title || 'Product'}" class="product-image">
+                    <div class="product-title">${product.title || 'Product'}</div>
+                    <div class="product-price">${formatCurrency(product.price)}</div>
+                    <div class="product-actions">
+                        <button class="btn btn-primary" onclick="window.location.href='product-detail.html?id=${product.id}'">View Details</button>
+                        <button class="btn btn-secondary" onclick="addToCartFromCompareId(${product.id})">Add to Cart</button>
+                    </div>
+                `;
+                headerRow.appendChild(th);
+            });
+
+            thead.appendChild(headerRow);
+
+            // Build body
+            const tbody = document.createElement('tbody');
+            featureRows.forEach(row => {
+                const tr = document.createElement('tr');
+
+                const tdLabel = document.createElement('td');
+                tdLabel.innerHTML = `<strong>${row.label}</strong>`;
+                tr.appendChild(tdLabel);
+
+                const values = compare.map(p => p[row.key]);
+                const highlight = shouldHighlight(values);
+
+                compare.forEach(p => {
+                    const td = document.createElement('td');
+                    td.className = 'feature-cell' + (highlight ? ' highlight' : '');
+                    td.textContent = row.format(p[row.key]);
+                    tr.appendChild(td);
+                });
+
+                tbody.appendChild(tr);
+            });
+
+            table.innerHTML = '';
+            table.appendChild(thead);
+            table.appendChild(tbody);
+        }
+
+        renderCompare();
+
+    </script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</body>
+</html>
